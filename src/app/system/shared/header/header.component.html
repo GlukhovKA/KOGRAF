@@ -1,4 +1,4 @@
-<div class="navbar">
+<!-- <div class="navbar">
   <div class="container">
     <div class="row">
       <div class="col-lg-2">
@@ -21,12 +21,163 @@
       <button type="button" class="button__account" (click)="personal()" *ngIf="checkLogin()"><span ><img src="../../../../assets/pictures/home/carAccount.png">{{currentUser.name}}</span></button>
     </div>
   </div>
-</div>
+</div> -->
+
+<header class="p-3 bg-dark text-white fixed-top" >
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      <a [routerLink]="['']"  class="logo__link d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+        <img class="icon bi me-2" height="65" src="../../../../assets/pictures/header/kograf.svg">
+      </a>
+
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="#" class="nav-link px-2 text-secondary head-text">Главная</a></li>
+        <li><a href="#" class="nav-link px-2 text-white head-text">Новости</a></li>
+        <li><a href="#" class="nav-link px-2 text-white head-text">Контакты</a></li>
+      </ul>
+
+      <div class="text-end" *ngIf="!checkLogin()">
+        <button type="button" data-bs-toggle="modal" data-bs-target="#windowLogIn" class="btn btn-outline-light me-2">Вход</button>
+        <button type="button" data-bs-target="#windowRegistration" data-bs-toggle="modal" class="btn btn-warning">Регистрация</button>
+
+      </div>
+
+      <div class="dropdown text-end" *ngIf="checkLogin()">
+        <a href="#" class="dropdown-toggle d-block text-white text-decoration-none" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="https://github.com/mdo.png" alt="mdo" width="55" height="55" class="rounded-circle">
+        </a>
+
+        <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser">
+          <li><a class="dropdown-item" href="#">Профиль</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#">Выход</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
 
 
 
 <!-- FORM LOGIN -->
-<div class="modal fade" (keyup.enter)="pressBtn('loginBtn')" id="windowLogIn" tabindex="-1" aria-labelledby="windowLogIn" aria-hidden="true">
+<div class="modal fade modal-signin " (keyup.enter)="pressBtn('loginBtn')" id="windowLogIn" tabindex="-1" aria-labelledby="windowLogIn" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document" id="login">
+    <div class="modal-content rounded-5 shadow">
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <h2 class="fw-bold mb-0" style="color: #2D2D2D;">Вход в аккаунт</h2>
+        <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body p-5 pt-0">
+        <form [formGroup]="loginForm">
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control rounded-4" formControlName="email" id="floatingInput">
+            <label for="floatingInput">Email</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control rounded-4" formControlName="password" id="floatingPassword">
+            <label for="floatingPassword">Пароль</label>
+          </div>
+          <button class="w-100 btn btn-lg rounded-4 btn-primary" style="background-color: #33486E;" type="submit">Вход</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- FORM REGISTRATION -->
+
+<div class="modal fade modal-signin" (keyup.enter)="pressBtn('buttonNext')" id="windowRegistration" tabindex="-1" aria-labelledby="windowRegistration" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" id="registration" style="margin-top: 4%;">
+    <div class="modal-content rounded-5 shadow">
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+      
+        <h2 class="fw-bold mb-0" style="color: #2D2D2D;">Регистрация</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body p-5 pt-0">
+        <form [formGroup]="formRegistration" (keyup.enter)="pressBtn('button__code')">
+
+          <div class="form-floating mb-3">
+            <input type="fullName" class="form-control rounded-4" formControlName="fullName">
+            <label for="floatingInput">ФИО <span style="color: red;">*</span></label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="phone" prefix="+7" mask=" (000) 000-0000" formControlName="phone" class="form-control rounded-4">
+            <label for="floatingInput">Номер телефона <span style="color: red;">*</span></label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control rounded-4" formControlName="email">
+            <label for="floatingInput">Email <span style="color: red;">*</span></label>
+          </div>
+ 
+          <div class="form-floating mb-3">
+            <input type="organization" class="form-control rounded-4" formControlName="organization">
+            <label for="floatingInput">Аффилиация (организация) <span style="color: red;">*</span></label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="academicDegree" class="form-control rounded-4" formControlName="academicDegree">
+            <label for="floatingInput">Ученая степень</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="academicTitle" class="form-control rounded-4" formControlName="academicTitle">
+            <label for="floatingInput">Ученое звание</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control rounded-4" formControlName="password">
+            <label for="floatingInput">Пароль <span style="color: red;">*</span></label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control rounded-4" formControlName="confirmedPassword">
+            <label for="floatingInput">Подтверждение пароля <span style="color: red;">*</span></label>
+          </div>
+
+        
+          <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" style="background-color: #33486E;"  type="submit">Регистрация</button>
+          <small class="text-muted"><span style="color: red;">*</span> Нажимая зарегистрироваться, вы соглашаетесь с <a href="">правилами</a></small>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!--
+ FORM CODE
+<div class="modal fade" id="windowCode" tabindex="-1" aria-labelledby="windowCode" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="code">
+    <div class="modal-content" id="background__code">
+      <h5 class="modal-title">Регистрация</h5>
+      <form [formGroup]="formCode">
+          <div class="form-group col-7">
+            <label>Введите код высланный на ваш e-mail</label>
+            <input type="code" formControlName="code" class="input__modal"/>
+          </div>
+        <button type="submit" id="button__code" data-bs-dismiss="modal">
+          Зарегистрироваться
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+-->
+
+
+
+
+<!-- FORM LOGIN -->
+<!-- <div class="modal fade" (keyup.enter)="pressBtn('loginBtn')" id="windowLogIn" tabindex="-1" aria-labelledby="windowLogIn" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" id="login">
     <div class="modal-content" id="background__login">
       <h5 class="modal-title">Вход</h5>
@@ -46,10 +197,10 @@
       </p>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- FORM REGISTRATION -->
-<div class="modal fade" (keyup.enter)="pressBtn('buttonNext')" id="windowRegistration" tabindex="-1" aria-labelledby="windowRegistration" aria-hidden="true">
+<!-- <div class="modal fade" (keyup.enter)="pressBtn('buttonNext')" id="windowRegistration" tabindex="-1" aria-labelledby="windowRegistration" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" id="registration">
     <div class="modal-content" id="background__registration">
       <h5 class="modal-title" id="registration__text">Регистрация</h5>
@@ -85,25 +236,4 @@
       </form>
     </div>
   </div>
-</div>
-
-<!--
- FORM CODE
-<div class="modal fade" id="windowCode" tabindex="-1" aria-labelledby="windowCode" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg" id="code">
-    <div class="modal-content" id="background__code">
-      <h5 class="modal-title">Регистрация</h5>
-      <form [formGroup]="formCode">
-          <div class="form-group col-7">
-            <label>Введите код высланный на ваш e-mail</label>
-            <input type="code" formControlName="code" class="input__modal"/>
-          </div>
-        <button type="submit" id="button__code" data-bs-dismiss="modal">
-          Зарегистрироваться
-        </button>
-      </form>
-    </div>
-  </div>
-</div>
--->
-
+</div> -->
