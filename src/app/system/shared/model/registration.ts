@@ -1,20 +1,38 @@
 export class Registration {
-  private _id!: bigint;
-  private _name!: string;
+  private _fullName!: string;
   private _phone!: string;
-  private _password!: string;
-  private _carWashLocation!: string;
   private _email!: string;
+  private _organization!: string;
+  private _academicDegree!: string;
+  private _academicTitle!: string;
+  private _password!: string;
 
   constructor() {
   }
 
-  get id(): bigint {
-    return this._id;
+  get academicTitle(): string {
+    return this._academicTitle;
   }
 
-  set id(value: bigint) {
-    this._id = value;
+  set academicTitle(value: string) {
+    this._academicTitle = value;
+  }
+  
+
+  get academicDegree(): string {
+    return this._academicDegree;
+  }
+
+  set academicDegree(value: string) {
+    this._academicDegree = value;
+  }
+  
+  get organization(): string {
+    return this._organization;
+  }
+
+  set organization(value: string) {
+    this._organization = value;
   }
 
   get phone(): string {
@@ -33,20 +51,12 @@ export class Registration {
     this._password = value;
   }
 
-  get name(): string {
-    return this._name;
+  get fullName(): string {
+    return this._fullName;
   }
 
-  set name(value: string) {
-    this._name = value;
-  }
-
-  get carWashLocation(): string {
-    return this._carWashLocation;
-  }
-
-  set carWashLocation(value: string) {
-    this._carWashLocation = value;
+  set fullName(value: string) {
+    this._fullName = value;
   }
 
   get email(): string {

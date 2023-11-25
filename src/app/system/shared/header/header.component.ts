@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   formRegistration!: FormGroup;
   currentUser!: User;
 
-  public showCode: boolean = false;
+  public showRegStatus: boolean = false;
 
   private baseUrl = AppConstants.baseURL;
 
@@ -39,16 +39,18 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.formRegistration = this.formBuilder.group({
-      name: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      fullName: new FormControl('', [Validators.required, Validators.minLength(2)]),
       phone: new FormControl('', [Validators.required, Validators.minLength(10)]),
-      confirmedPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      code: new FormControl('')
+      email: new FormControl('', [Validators.required, Validators.email]),
+      organization: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      academicDegree: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      academicTitle: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      confirmedPassword: new FormControl('', [Validators.required, Validators.minLength(6)])
     });
     this.loginForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     })
   }
 
@@ -73,25 +75,17 @@ export class HeaderComponent implements OnInit {
 
   registration(): void {
     let request = {
-      "email": this.formRegistration.value.email,
+      "fullName": this.formRegistration.value.name,
       "phone": '7' + this.formRegistration.value.phone,
-      "password": this.formRegistration.value.password,
-      "name": this.formRegistration.value.name
+      "email": this.formRegistration.value.email,
+      "organization": this.formRegistration.value.organization,
+      "academicDegree": this.formRegistration.value.academicDegree,
+      "academicTitle": this.formRegistration.value.academicTitle,
+      "password": this.formRegistration.value.password
     };
     this.http.post<boolean>(`${this.baseUrl}/api/reg/createUser`, JSON.stringify(request), this.httpOptions).subscribe((data: boolean) => {
-      this.showCode = data;
+      this.showRegStatus = data;
     })
-  }
-
-  confirmCode(): void {
-    const {code, email} = this.formRegistration.value;
-
-    this.http.put<boolean>(`${this.baseUrl}/api/reg/checkConfirmation?code=${code}&contact=${email}`, code).subscribe((data: boolean) => {
-      if (!data) {
-        alert("Введён неправильный код!");
-      }
-    })
-    this.formRegistration.reset();
   }
 
   loggedUser!: LoginResponse | null;

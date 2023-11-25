@@ -206,11 +206,10 @@ export class PersonalAccountAdminComponent implements OnInit {
     const carwash = this.employeeLocation;
     const employee: Registration = new Registration()
 
-    employee.name = name;
+    employee.fullName = name;
     employee.email = email;
     employee.phone = '7' + phone;
     employee.password = password;
-    employee.carWashLocation = carwash;
 
     let request = {"name": name, "phone": '7' + phone, "email": email, "password": password, "carWashLocation": carwash};
     this.formEmpl.reset();
@@ -232,7 +231,7 @@ export class PersonalAccountAdminComponent implements OnInit {
 
   updateEmployeeOrderMap(order: Order, event: Event) {
     let emplName: string = (event.target as HTMLOptionElement).value;
-    let employee: Registration | undefined = this.currentEmployees.find((e) => e.name == emplName);
+    let employee: Registration | undefined = this.currentEmployees.find((e) => e.fullName == emplName);
     if (employee) {
       this.employeeOrderMap.set(order, employee);
     }
@@ -248,7 +247,7 @@ export class PersonalAccountAdminComponent implements OnInit {
       }
     });
 
-    this.http.put<boolean>(`${this.baseUrl}/api/admin/acceptOrder?id=${order.employee.id}`, JSON.stringify(order), this.httpOptions).subscribe(() => {
+    this.http.put<boolean>(`${this.baseUrl}/api/admin/acceptOrder?id=${order.employee.fullName}`, JSON.stringify(order), this.httpOptions).subscribe(() => {
     });
   }
 
@@ -275,11 +274,6 @@ export class PersonalAccountAdminComponent implements OnInit {
     this.changeServId = id;
   }
 
-  deleteEmployee() {
-    this.http.delete(`${this.baseUrl}/api/admin/deleteEmployee?id=${this.changeEmplId}`, this.httpOptions).subscribe(()=>{});
-    this.employeeAdd = this.employeeAdd.filter(e => e.id != this.changeEmplId);
-  }
-
   deleteService() {
     this.http.delete(`${this.baseUrl}/api/admin/deleteService?id=${this.changeServId}`, this.httpOptions).subscribe(()=>{});
     this.serviceAdd = this.serviceAdd.filter(e => e.id != this.changeServId);
@@ -290,11 +284,10 @@ export class PersonalAccountAdminComponent implements OnInit {
     const carwash = this.employeeLocation;
     const employee: Registration = new Registration()
 
-    employee.name = name;
+    employee.fullName = name;
     employee.email = email;
     employee.phone = '7' + phone;
     employee.password = password;
-    employee.carWashLocation = carwash;
 
     let request = {"id": this.changeEmplId, "name": name, "phone": '7' + phone, "email": email, "password": password, "carWashLocation": carwash};
     this.formChangeEmpl.reset();
@@ -302,13 +295,10 @@ export class PersonalAccountAdminComponent implements OnInit {
     this.http.put<boolean>(`${this.baseUrl}/api/admin/updateEmployee`, JSON.stringify(request), this.httpOptions).subscribe((data: boolean) => {
       if (data) {
         this.employeeAdd.forEach(e => {
-          if (e.id == this.changeEmplId) {
-            e.name = name;
+            e.fullName = name;
             e.password = password;
             e.phone = '7' + phone;
             e.email = email;
-            e.carWashLocation = carwash;
-          }
         })
       }
     });

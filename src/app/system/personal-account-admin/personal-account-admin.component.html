@@ -52,7 +52,7 @@
                                   aria-label=".form-select-sm example">
                             <option [ngValue]="undefined">Выберите</option>
                             <option *ngFor="let empl of currentEmployees">
-                              {{empl.name}}
+                              {{empl.fullName}}
                             </option>
                           </select>
                         </div>
@@ -178,7 +178,7 @@
                     <div class="order-list" *ngFor="let order of currentOrders">
                       <div class="row">
                         <div class="col-md-2">
-                          <div class="order-info">{{order.user.name}}</div>
+                          <div class="order-info">{{order.user.fullName}}</div>
                         </div>
                         <div class="col-md-2">
                           <div class="order-info">{{order.user.phone}}</div>
@@ -188,18 +188,18 @@
                         </div>
                         <div class="col-md-2">
                           <select class="employee-order-end" (change)="updateEmployeeOrderMap(order, $event)"
-                                  *ngIf="order.employee.name == ''">
+                                  *ngIf="order.employee.fullName == ''">
                             <option class="order-info" [ngValue]="undefined">Выберите</option>
-                            <option class="order-info" *ngFor="let emp of currentEmployees">{{emp.name}}</option>
+                            <option class="order-info" *ngFor="let emp of currentEmployees">{{emp.fullName}}</option>
                           </select>
-                          <div class="assigned-employee" *ngIf="order.employee.name != ''">{{order.employee.name}}</div>
+                          <div class="assigned-employee" *ngIf="order.employee.fullName != ''">{{order.employee.fullName}}</div>
                         </div>
                         <div class="col-md-2">
                           <button (click)="updateOrderEmployee(order)" type="button" class="button__order-appoint"
-                                  *ngIf="order.employee.name == ''"><span>Назначить</span></button>
+                                  *ngIf="order.employee.fullName == ''"><span>Назначить</span></button>
                           <button (click)="updateOrderStatus(order)" type="button" class="button__order-complited"
-                                  *ngIf="order.employee.name != '' && !order.status"><span>Завершить</span></button>
-                          <div class="order-complited" *ngIf="order.employee.name != '' && order.status">Завершен</div>
+                                  *ngIf="order.employee.fullName != '' && !order.status"><span>Завершить</span></button>
+                          <div class="order-complited" *ngIf="order.employee.fullName != '' && order.status">Завершен</div>
                         </div>
                       </div>
                     </div>
@@ -406,7 +406,7 @@
                   <div class="new-emp-info" *ngFor="let emp of employeeAdd">
                     <div class="row">
                       <div class="col-md-2">
-                        <div class="employee">{{emp.name}}</div>
+                        <div class="employee">{{emp.fullName}}</div>
                       </div>
                       <div class="col-md-3">
                         <div class="employee">{{emp.phone}}</div>
@@ -415,10 +415,10 @@
                         <div class="employee">{{emp.email}}</div>
                       </div>
                       <div class="col-md-4">
-                        <div class="employee-service-end">{{emp.carWashLocation}}</div>
+                        <div class="employee-service-end">{{emp.fullName}}</div>
                       </div>
                       <div class="col-md-1">
-                        <button (click)="changeEmployeeId(emp.id)" class="change" data-bs-toggle="modal" data-bs-target="#windowChangeEmp"><img src="../../../assets/pictures/paa/change.png" width="35px" height="35px"></button>
+                        <button class="change" data-bs-toggle="modal" data-bs-target="#windowChangeEmp"><img src="../../../assets/pictures/paa/change.png" width="35px" height="35px"></button>
                       </div>
 
                     </div>
@@ -573,7 +573,7 @@
                   [disabled]="formChangeEmpl.invalid || formChangeEmpl.get('carwash')?.value === 'Выберите'"
                   data-bs-dismiss="modal">Сохранить
           </button>
-          <button (click)="deleteEmployee()" type="button" class="Delete" aria-label="Закрыть" data-bs-dismiss="modal">Удалить
+          <button type="button" class="Delete" aria-label="Закрыть" data-bs-dismiss="modal">Удалить
           </button>
         </form>
       </div>
