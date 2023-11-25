@@ -133,8 +133,8 @@ export class AppComponent {
       return true;
     } else {
       if (!this.valueControlsChanged) {
-        this.formRecord.controls['fullName'].setValue(undefined);
-        this.formRecord.controls['phone'].setValue(undefined);
+          this.formRecord.controls['fullName'].setValue(undefined);
+          this.formRecord.controls['phone'].setValue(undefined);
         this.valueControlsChanged = true;
       }
       this.loggedUserInfo = null;

@@ -104,10 +104,12 @@ export class HeaderComponent implements OnInit {
         })
       }
       this.loggedUser = obj;
+      console.log(true)
       return true;
     } else {
       this.loggedStatus = false;
       this.loggedUser = null;
+      console.log(false)
       return false;
     }
   }
