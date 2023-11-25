@@ -1,33 +1,109 @@
-<header class="p-3 mb-3 border-bottom">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-        </a>
-
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="#" class="nav-link px-2 link-secondary">Overview</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark">Inventory</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark">Customers</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark">Products</a></li>
-        </ul>
-
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-        </form>
-
-        <div class="dropdown text-end">
-          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-          </a>
-          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-            <li><a class="dropdown-item" href="#">New project...</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
-          </ul>
+<div class="navbar">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-2">
+        <div class="logo">
+          <a [routerLink]="['']" class="logo__link">Swoosh
+            <span>сеть автомоек</span></a>
         </div>
       </div>
     </div>
-  </header>
+    <div class="col-lg-8">
+      <ul class="top-menu">
+        <li class="top-menu__item"><a [routerLink]="['']" fragment="prices" class="top-menu__link">Цены</a></li>
+        <li class="top-menu__item"><a class="top-menu__link" data-bs-toggle="modal" data-bs-target="#windowNote"><span>ON-line</span> запись</a></li>
+        <li class="top-menu__item"><a [routerLink]="['']" fragment="reviews" class="top-menu__link">Отзывы</a></li>
+        <li class="top-menu__item"><a [routerLink]="['']" fragment="faq" class="top-menu__link">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="col-lg-2">
+      <button type="button" class="button__account" data-bs-toggle="modal" data-bs-target="#windowLogIn" *ngIf="!checkLogin()"><span ><img src="../../../../assets/pictures/home/carAccount.png">Личный кабинет</span></button>
+      <button type="button" class="button__account" (click)="personal()" *ngIf="checkLogin()"><span ><img src="../../../../assets/pictures/home/carAccount.png">{{currentUser.name}}</span></button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- FORM LOGIN -->
+<div class="modal fade" (keyup.enter)="pressBtn('loginBtn')" id="windowLogIn" tabindex="-1" aria-labelledby="windowLogIn" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="login">
+    <div class="modal-content" id="background__login">
+      <h5 class="modal-title">Вход</h5>
+      <form  [formGroup]="loginForm">
+          <div class="form-group col-7">
+            <label id="email__login">e-mail</label>
+            <input type="text" formControlName="email" class="input__modal"/>
+          </div>
+          <div class="form-group col-7">
+            <label id="password__login">Пароль</label>
+            <input type="password" formControlName="password" class="input__modal"/>
+          </div>
+        <button id="loginBtn" type="button" class="button__modal" (click)="login()" data-bs-dismiss="modal">Войти
+        </button>
+      </form>
+      <p id="text__login">У меня еще нет аккаунта, <a data-bs-target="#windowRegistration" data-bs-toggle="modal" ><span data-bs-target="#windowLogIn" data-bs-dismiss="modal">зарегистрироваться.</span></a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- FORM REGISTRATION -->
+<div class="modal fade" (keyup.enter)="pressBtn('buttonNext')" id="windowRegistration" tabindex="-1" aria-labelledby="windowRegistration" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="registration">
+    <div class="modal-content" id="background__registration">
+      <h5 class="modal-title" id="registration__text">Регистрация</h5>
+      <form [formGroup]="formRegistration" (keyup.enter)="pressBtn('button__code')">
+          <div class="form-group col-7">
+            <label>Имя</label>
+            <input type="name" formControlName="name" class="input__modal"/>
+          </div>
+          <div class="form-group col-7">
+            <label>e-mail</label>
+            <input type="email" formControlName="email" class="input__modal"/>
+          </div>
+          <div class="form-group col-7">
+            <label>Номер телефона</label>
+            <input type="tel" prefix="+7" mask=" (000) 000-0000" formControlName="phone" class="input__modal">
+          </div>
+          <div class="form-group col-7">
+            <label>Пароль</label>
+            <input type="password" formControlName="password" class="input__modal"/>
+          </div>
+          <div class="form-group col-7">
+            <label>Введите пароль еще раз</label>
+            <input type="password" formControlName="confirmedPassword" class="input__modal"/>
+          </div>
+        <div class="form-group col-7" *ngIf="showCode">
+          <label>Введите код высланный на ваш e-mail</label>
+          <input type="code" formControlName="code" class="input__modal"/>
+        </div>
+        <button type="button" id="buttonNext" class="button__modal" data-bs-target="#windowCode" (click)="registration()" *ngIf="!showCode" [disabled]="formRegistration.invalid">Далее</button>
+        <button type="button" id="button__code"  data-bs-dismiss="modal" *ngIf="showCode" (click)="confirmCode()">
+          Зарегистрироваться
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--
+ FORM CODE
+<div class="modal fade" id="windowCode" tabindex="-1" aria-labelledby="windowCode" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" id="code">
+    <div class="modal-content" id="background__code">
+      <h5 class="modal-title">Регистрация</h5>
+      <form [formGroup]="formCode">
+          <div class="form-group col-7">
+            <label>Введите код высланный на ваш e-mail</label>
+            <input type="code" formControlName="code" class="input__modal"/>
+          </div>
+        <button type="submit" id="button__code" data-bs-dismiss="modal">
+          Зарегистрироваться
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+-->
+
