@@ -31,7 +31,7 @@
       </a>
 
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="#" class="nav-link px-2 text-secondary head-text">Главная</a></li>
+        <li><a href="#" class="nav-link px-2 text-white head-text">Главная</a></li>
         <li><a href="#" class="nav-link px-2 text-white head-text">Новости</a></li>
         <li><a href="#" class="nav-link px-2 text-white head-text">Контакты</a></li>
       </ul>
@@ -49,6 +49,7 @@
 
         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser">
           <li><a class="dropdown-item" href="#">Профиль</a></li>
+          <li><a class="dropdown-item" href="#">Личный кабинет</a></li>
           <li><hr class="dropdown-divider"></li>
           <li><a class="dropdown-item" href="#">Выход</a></li>
         </ul>
@@ -72,11 +73,11 @@
         <form [formGroup]="loginForm">
           <div class="form-floating mb-3">
             <input type="email" class="form-control rounded-4" formControlName="email" id="floatingInput">
-            <label for="floatingInput">Email</label>
+            <label for="floatingInput">Email <span style="color: red;">*</span></label>
           </div>
           <div class="form-floating mb-3">
             <input type="password" class="form-control rounded-4" formControlName="password" id="floatingPassword">
-            <label for="floatingPassword">Пароль</label>
+            <label for="floatingPassword">Пароль <span style="color: red;">*</span></label>
           </div>
           <button class="w-100 btn btn-lg rounded-4 btn-primary" style="background-color: #33486E;" type="submit">Вход</button>
         </form>
