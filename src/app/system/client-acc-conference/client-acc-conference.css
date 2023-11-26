@@ -1,0 +1,85 @@
+#client_account_conference {
+  background: url(../../../assets/pictures/home/pattern.svg);
+}
+
+.main_conference {
+  background: url(../../../assets/pictures/home/page.svg);
+  padding: 180px 30px 0px 30px;
+  box-shadow: rgb(0, 0, 0, 0.5) 0px 0px 50px;
+  min-height: 1000px;
+}
+
+.fixed-top {
+  box-shadow: #000 0px 0px 25px;
+}
+.head-text {
+  font-size: 18px;
+}
+
+.btn-konf-reg {
+  background-color: #546585;
+  height: 60px;
+  border-radius: 30px;
+  min-width: 100%;
+  font-size: 24px;
+  margin: 20px 0px 20px 0px;
+}
+
+.konf-name {
+  font-size: 24px !important;
+  font-weight: bold !important;
+  margin-bottom: 20px;
+}
+
+.konf-organization {
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  margin-bottom: 20px;
+}
+
+.konf-status {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  margin-bottom: 20px;
+  color: #1C3A71;
+}
+
+.konf-timeDate {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #78314A;
+}
+
+.konf-info-block {
+  padding: 20px 10px 20px 10px;
+  background-color: #B6BDCB;
+  font-size: 18px !important;
+  margin: 0px 0px 20px 0px;
+}
+
+.konf-section-block {
+  padding: 20px 10px 20px 10px;
+  background-color: #B6BDCB;
+  font-weight: 600 !important;  
+  font-size: 20px !important;
+  margin: 3px 0px 3px 0px;
+}
+
+.konf-lead-block {
+  padding: 20px 10px 20px 10px;
+  background-color: #B6BDCB;
+  font-weight: 600 !important;
+  font-size: 20px !important;
+  margin: 3px 0px 3px 0px;
+}
+
+.konf-title {
+  font-size: 18px !important;
+  font-weight: 500 !important;
+}
+
+.konf-lead {
+  font-size: 18px !important;
+  font-weight: 500 !important;  
+}
+
