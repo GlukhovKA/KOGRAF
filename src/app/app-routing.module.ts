@@ -4,6 +4,7 @@ import {HomeComponent} from "./system/home/home.component";
 import {PersonalAccountClientComponent} from "./system/personal-account-client/personal-account-client.component";
 import {PersonalAccountAdminComponent} from "./system/personal-account-admin/personal-account-admin.component";
 import {AboutCarwashComponent} from "./system/about-carwash/about-carwash.component";
+import { ConferenceClientComponent } from "./system/client-acc-conference/client-acc-conference";
 
 const routes: Routes = [
   {
@@ -13,6 +14,10 @@ const routes: Routes = [
   {
     path: 'personal-account-client',
     component: PersonalAccountClientComponent
+  },
+  {
+    path: 'client-account-conference',
+    component: ConferenceClientComponent
   },
   {
     path: 'personal-account-admin',
