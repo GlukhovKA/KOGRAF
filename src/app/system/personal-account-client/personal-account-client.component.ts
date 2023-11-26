@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, RadioControlValueAccessor, Validators} from "@angular/forms";
-import {Order} from "../shared/model/order";
+import {Conference} from "../shared/model/conference";
+import {User} from "../shared/model/user";
 import {AppConstants} from "../../app.module";
 import {Router} from "@angular/router";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
@@ -13,11 +14,11 @@ import {LoginResponse} from "../shared/model/login.response";
 })
 export class PersonalAccountClientComponent implements OnInit {
 
-  formReview!: FormGroup;
-  orders: Order[] = [];
-  currentOrder!: Order;
+  conferences: Conference[] = [];
+  currentConference!: Conference;
+  currentUser!: User;
+  loggedUser!: LoginResponse;
   private baseUrl = AppConstants.baseURL;
-  grade: number = 1;
 
   httpOptions = {
     headers: new HttpHeaders(
@@ -27,13 +28,11 @@ export class PersonalAccountClientComponent implements OnInit {
     )
   }
 
-  constructor(private formBuilder: FormBuilder,
-              private router: Router,
+  constructor(private router: Router,
               private http: HttpClient) {
 
   }
 
-  loggedUser!: LoginResponse;
 
   checkLogin() {
     let json: string | null = sessionStorage.getItem("user");
@@ -50,20 +49,18 @@ export class PersonalAccountClientComponent implements OnInit {
   ngOnInit(): void {
     this.checkLogin();
 
-    this.http.get<Order[]>(`${this.baseUrl}/api/customer/getUserOrders?email=${this.loggedUser.email}`, this.httpOptions).subscribe((data: Order[]) => {
-      this.orders = data;
-    });
+    //this.httpOptions.headers.set('Authorization', this.loggedUser != null ? this.loggedUser.token : '')
+    this.http.get<User>(`${this.baseUrl}/api/v1/member/getUser?email=${this.loggedUser.email}`, this.httpOptions).subscribe((data: User) => {
+      this.currentUser = data;
+      sessionStorage.setItem("user_info", JSON.stringify(data));
+    })
 
-    this.formReview = this.formBuilder.group({
-      text: new FormControl('', [Validators.required]),
+    this.http.get<Conference[]>(`${this.baseUrl}/api/v1/member/conferences`, this.httpOptions).subscribe((data: Conference[]) => {
+      this.conferences = data;
     });
   }
 
-  getGrade(grade:number){
-    this.grade = grade;
-  }
-
-  saveReview() {
+  /* saveReview() {
     const text: string = this.formReview.controls['text'].value;
 
     this.orders.forEach((e) => {
@@ -82,7 +79,7 @@ export class PersonalAccountClientComponent implements OnInit {
     if (order) {
       this.currentOrder = order;
     }
-  }
+  } */
 
   logout() {
     sessionStorage.clear();

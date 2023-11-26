@@ -8,6 +8,7 @@ export class Conference {
     private _sections!: Section[];
     private _status!: string;
     private _users!: User[];
+    private _countUsers!: number;
     private _startDate!: string;
     private _endDate!: string;
     
@@ -60,6 +61,14 @@ export class Conference {
     
     set users(value: User[]) {
         this._users = value;
+    }
+
+    get countUsers(): number {
+        return this._countUsers;
+    }
+
+    set countUsers(value: number) {
+        this._countUsers = value;
     }
 
     get startDate(): string {

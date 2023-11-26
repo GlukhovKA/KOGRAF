@@ -51,7 +51,7 @@
           <li><a class="dropdown-item" href="#">Профиль</a></li>
           <li><a class="dropdown-item" href="#">Личный кабинет</a></li>
           <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#">Выход</a></li>
+          <li><a class="dropdown-item" href="#" (click)="logout()">Выход</a></li>
         </ul>
       </div>
     </div>
@@ -79,7 +79,7 @@
             <input type="password" class="form-control rounded-4" formControlName="password" id="floatingPassword">
             <label for="floatingPassword">Пароль <span style="color: red;">*</span></label>
           </div>
-          <button class="w-100 btn btn-lg rounded-4 btn-primary" style="background-color: #33486E;" type="submit">Вход</button>
+          <button class="w-100 btn btn-lg rounded-4 btn-primary" style="background-color: #33486E;" type="submit" (click)="login()" data-bs-dismiss="modal">Вход</button>
         </form>
       </div>
     </div>
@@ -141,7 +141,7 @@
           </div>
 
         
-          <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" style="background-color: #33486E;" data-bs-target="#RegStatus" (click)="registration()" *ngIf="!showRegStatus" [disabled]="formRegistration.invalid">Регистрация</button>
+          <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" style="background-color: #33486E;" data-bs-target="#RegStatus" (click)="registration()" *ngIf="!showRegStatus" [disabled]="formRegistration.invalid" data-bs-dismiss="modal">Регистрация</button>
           <small class="text-muted"><span style="color: red;">*</span> Нажимая зарегистрироваться, вы соглашаетесь с <a href="">правилами</a></small>
           
         </form>

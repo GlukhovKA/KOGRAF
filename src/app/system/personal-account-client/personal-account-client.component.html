@@ -17,18 +17,18 @@
         <div class="main" style="padding-top: 200px;">
 
           <div class="konf-list">
-            <div class="row">
+            <div class="row" *ngFor="let conf of this.conferences">
               <div class="col-md-6">
-                <div class="konf-name">Название</div>
-                <div class="konf-organization text-white">Организатор</div>
-                <div class="konf-status">Статус конференции</div>
+                <div class="konf-name">{{conf.title}}</div>
+                <div class="konf-organization text-white">{{conf.organization}}</div>
+                <div class="konf-status">{{conf.status}}</div>
               </div>
               <div class="col-md-6 text-end">
                 <div class="row justify-content-end">
                   <div class="text-center col-6">
-                    <div class="konf-count text-white">Кол-во участников: 999</div>
+                    <div class="konf-count text-white">Кол-во участников: {{conf.countUsers}}</div>
                     <button type="button" class="btn btn-konf text-white px-1" data-bs-toggle="modal" data-bs-target="#windowReview" >Открыть</button>
-                    <div class="konf-timeDate">15:00 23.11.2023 - 15:00 31.12.23</div>
+                    <div class="konf-timeDate">{{conf.startDate}} - {{conf.endDate}}</div>
                   </div>
                 </div>
               </div>

@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   formRegistration!: FormGroup;
   currentUser!: User;
 
-  public showRegStatus: boolean = false;
+  public showRegStatus!: User;
 
   private baseUrl = AppConstants.baseURL;
 
@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
       {
         'Content-Type': 'application/json',
         // @ts-ignore
-        // 'Authorization': sessionStorage.getItem('user') != null ? JSON.parse(sessionStorage.getItem('user')).token : ''
+        //'Authorization': sessionStorage.getItem('user') != null ? JSON.parse(sessionStorage.getItem('user')).token : ''
       }
     )
   }
@@ -61,13 +61,14 @@ export class HeaderComponent implements OnInit {
   login(): void {
     let email: string = this.loginForm.value.email;
     let request = {"email": email, "password": this.loginForm.value.password};
-    this.http.post<LoginResponse>(`${this.baseUrl}/api/auth/login`, JSON.stringify(request), this.httpOptions).subscribe((data: LoginResponse) => {
-      if (data.role == "CUSTOMER" || data.role == "EMPLOYEE") {
+    this.http.post<LoginResponse>(`${this.baseUrl}/api/v1/auth/login`, JSON.stringify(request), this.httpOptions).subscribe((data: LoginResponse) => {
+      if (data.role == "MEMBER" || data.role == "LEADER") {
         this.router.navigate(["/personal-account-client"]);
       } else if (data.role == "ADMIN") {
         this.router.navigate(["/personal-account-admin"]);
       }
       sessionStorage.setItem("user", JSON.stringify(data));
+      this.loggedUser = data;
     });
     this.loginForm.reset();
   }
@@ -75,7 +76,7 @@ export class HeaderComponent implements OnInit {
 
   registration(): void {
     let request = {
-      "fullName": this.formRegistration.value.name,
+      "fullName": this.formRegistration.value.fullName,
       "phone": '7' + this.formRegistration.value.phone,
       "email": this.formRegistration.value.email,
       "organization": this.formRegistration.value.organization,
@@ -83,7 +84,7 @@ export class HeaderComponent implements OnInit {
       "academicTitle": this.formRegistration.value.academicTitle,
       "password": this.formRegistration.value.password
     };
-    this.http.post<boolean>(`${this.baseUrl}/api/reg/createUser`, JSON.stringify(request), this.httpOptions).subscribe((data: boolean) => {
+    this.http.post<User>(`${this.baseUrl}/api/v1/auth/registration`, JSON.stringify(request), this.httpOptions).subscribe((data: User) => {
       this.showRegStatus = data;
     })
   }
@@ -96,31 +97,27 @@ export class HeaderComponent implements OnInit {
     let obj: LoginResponse | null = json != null ? JSON.parse(json) : null;
 
     if (obj != null) {
-      if (!this.loggedStatus) {
-        this.http.get<User>(`${this.baseUrl}/api/customer/getUser?email=${obj.email}`, this.httpOptions).subscribe((data: User) => {
-          this.currentUser = data;
-          sessionStorage.setItem("user_info", JSON.stringify(data));
-          this.loggedStatus = true;
-        })
-      }
+      this.loggedStatus = true;
       this.loggedUser = obj;
-      console.log(true)
       return true;
     } else {
       this.loggedStatus = false;
       this.loggedUser = null;
-      console.log(false)
       return false;
     }
   }
 
   personal() {
     if (this.loggedUser != null) {
-      if (this.loggedUser.role == "CUSTOMER" || this.loggedUser.role == "EMPLOYEE") {
+      if (this.loggedUser.role == "MEMBER" || this.loggedUser.role == "LEADER") {
         this.router.navigate(["/personal-account-client"]);
       } else if (this.loggedUser.role == "ADMIN") {
         this.router.navigate(["/personal-account-admin"]);
       }
     }
+  }
+
+  logout() {
+    sessionStorage.clear();
   }
 }
