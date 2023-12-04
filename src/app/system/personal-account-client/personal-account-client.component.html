@@ -1,4 +1,4 @@
-<header class="p-3 bg-dark text-white fixed-top" style="margin-top: 87px;background-color: #33486E!important; z-index: 0;">
+<header class="p-3 bg-dark text-white fixed-top" style="margin-top: 87px;background-color: #33486E!important; z-index: 9;">
   <div class="container">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
@@ -16,8 +16,8 @@
       <div class="col-md-12">
         <div class="main" style="padding-top: 200px;">
 
-          <div class="konf-list">
-            <div class="row" *ngFor="let conf of this.conferences">
+          <div class="konf-list" style="margin-top: -30px;">
+            <div class="row konf-item" *ngFor="let conf of this.conferences">
               <div class="col-md-6">
                 <div class="konf-name">{{conf.title}}</div>
                 <div class="konf-organization text-white">{{conf.organization}}</div>
