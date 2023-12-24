@@ -1,6 +1,4 @@
-import { Conference } from "./conference";
-import { Section } from "./section";
-import { User } from "./user";
+
 import { Commentary } from "./commentary";
 
 export class Job {
@@ -8,12 +6,12 @@ export class Job {
     private _title!: string;
     private _description!: string;
     private _coAuthors!: string;
-    private _user!: User;
-    private _conference!: Conference;
-    private _section!: Section;
+    private _userId!: bigint;
+    private _conferenceId!: bigint;
+    private _sectionId!: bigint;
     private _comments!: Commentary[];
     private _dateTime!: string;
-    private _sourceFile!: string;
+    private _fileName!: string;
 
     constructor() {
     }
@@ -50,28 +48,28 @@ export class Job {
         this._coAuthors = value;
     }
 
-    get user(): User {
-        return this._user;
+    get userId(): bigint {
+        return this._userId;
     }
     
-    set user(value: User) {
-        this._user = value;
+    set userId(value: bigint) {
+        this._userId = value;
     }
 
-    get conference(): Conference {
-        return this._conference;
+    get conferenceId(): bigint {
+        return this._conferenceId;
     }
     
-    set conference(value: Conference) {
-        this._conference = value;
+    set conferenceId(value: bigint) {
+        this._conferenceId = value;
     }
 
-    get section(): Section {
-        return this._section;
+    get sectionId(): bigint {
+        return this._sectionId;
     }
     
-    set section(value: Section) {
-        this._section = value;
+    set sectionId(value: bigint) {
+        this._sectionId = value;
     }
 
     get comments(): Commentary[] {
@@ -90,11 +88,11 @@ export class Job {
         this._dateTime = value;
     }
 
-    get sourceFile(): string {
-        return this._sourceFile;
+    get fileName(): string {
+        return this._fileName;
     }
     
-    set sourceFile(value: string) {
-        this._sourceFile = value;
+    set fileName(value: string) {
+        this._fileName = value;
     }
 }

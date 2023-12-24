@@ -1,13 +1,13 @@
 import { Section } from "./section";
-import { User } from "./user";
 
 export class Conference {
     private _id!: bigint;
     private _title!: string;
     private _organization!: string;
+    private _description!: string;
     private _sections!: Section[];
     private _status!: string;
-    private _users!: User[];
+    private _userIds!: bigint[];
     private _countUsers!: number;
     private _startDate!: string;
     private _endDate!: string;
@@ -39,6 +39,14 @@ export class Conference {
         this._organization = value;
     }
 
+    get description(): string {
+        return this._description;
+    }
+
+    set description(value: string) {
+        this._description = value;
+    }
+
     get sections(): Section[] {
         return this._sections;
     }
@@ -55,12 +63,12 @@ export class Conference {
         this._status = value;
     }
 
-    get users(): User[] {
-        return this._users;
+    get userIds(): bigint[] {
+        return this._userIds;
     }
     
-    set users(value: User[]) {
-        this._users = value;
+    set userIds(value: bigint[]) {
+        this._userIds = value;
     }
 
     get countUsers(): number {

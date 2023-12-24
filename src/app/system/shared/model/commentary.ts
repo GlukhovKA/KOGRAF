@@ -1,10 +1,8 @@
-import { Job } from "./job";
-import { User } from "./user";
 
 export class Commentary {
     private _id!: bigint;
-    private _job!: Job;
-    private _user!: User;
+    private _jobId!: bigint;
+    private _userId!: bigint;
     private _message!: string;
     private _dateTime!: string;
 
@@ -19,20 +17,20 @@ export class Commentary {
         this._id = value;
       }
 
-      get job(): Job {
-        return this._job;
+      get jobId(): bigint {
+        return this._jobId;
       }
     
-      set job(value: Job) {
-        this._job = value;
+      set jobId(value: bigint) {
+        this._jobId = value;
       }
 
-      get user(): User {
-        return this._user;
+      get userId(): bigint {
+        return this._userId;
       }
     
-      set user(value: User) {
-        this._user = value;
+      set userId(value: bigint) {
+        this._userId = value;
       }
 
       get message(): string {

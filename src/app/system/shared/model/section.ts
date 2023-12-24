@@ -1,11 +1,9 @@
-import { Conference } from "./conference";
-import { User } from "./user";
 
 export class Section {
     private _id!: bigint;
     private _title!: string;
-    private _users!: User[];
-    private _conference!: Conference[];
+    private _leaderName!: string;
+    private _conferenceId!: bigint;
 
     constructor() {
     }
@@ -26,19 +24,19 @@ export class Section {
         this._title = value;
     }
 
-    get users(): User[] {
-        return this._users;
+    get leaderName(): string {
+        return this._leaderName;
     }
     
-    set users(value: User[]) {
-        this._users = value;
+    set leaderName(value: string) {
+        this._leaderName = value;
     }
 
-    get conference(): Conference[] {
-        return this._conference;
+    get conferenceId(): bigint {
+        return this._conferenceId;
     }
     
-    set conference(value: Conference[]) {
-        this._conference = value;
+    set conferenceId(value: bigint) {
+        this._conferenceId = value;
     }
 }
