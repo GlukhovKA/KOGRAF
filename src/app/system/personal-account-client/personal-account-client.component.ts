@@ -16,9 +16,12 @@ export class PersonalAccountClientComponent implements OnInit {
 
   conferences: Conference[] = [];
   currentConference!: Conference;
+  formAddConf!: FormGroup;
   currentUser!: User;
   loggedUser!: LoginResponse;
   private baseUrl = AppConstants.baseURL;
+
+  statuses: string[] = ['Класс A', 'Класс B', 'Класс C', 'Класс D', 'Класс E', 'Класс F', 'Класс G', 'Класс H'];
 
   httpOptions = {
     headers: new HttpHeaders(
@@ -29,6 +32,7 @@ export class PersonalAccountClientComponent implements OnInit {
   }
 
   constructor(private router: Router,
+    private formBuilder: FormBuilder,
               private http: HttpClient) {
 
   }
@@ -58,7 +62,23 @@ export class PersonalAccountClientComponent implements OnInit {
     this.http.get<Conference[]>(`${this.baseUrl}/api/v1/member/conferences`, this.httpOptions).subscribe((data: Conference[]) => {
       this.conferences = data;
     });
+
+    this.formAddConf = this.formBuilder.group({
+      confName: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      organization: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      description: new FormControl('', []),
+      date_start: new FormControl('', [Validators.required]),
+      date_end: new FormControl('', [Validators.required]),
+      status: new FormControl('', [Validators.required]),
+    });
   }
+
+  addConf() {
+
+  }
+
+  updateStatus(event: Event) {
+   }
 
   /* saveReview() {
     const text: string = this.formReview.controls['text'].value;
