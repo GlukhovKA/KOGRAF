@@ -17,7 +17,7 @@
 .konf-information {
   background-color: rgba(255, 255, 255, 0.7);
   padding: 20px;
-  
+
 }
 
 .conf-title {
@@ -55,7 +55,7 @@
   font-weight: 400 !important;
   margin-bottom: 10px;
   padding: 0px;
-  
+
 }
 
 .jobs-list-text {
@@ -67,6 +67,10 @@
   -ms-overflow-style: none;
       scrollbar-width: none;
   white-space: nowrap;
+}
+
+.download-pointer {
+  cursor: pointer;
 }
 
 .jobs-list-text::-webkit-scrollbar {
@@ -136,7 +140,7 @@
   z-index: 0;
   padding: 0px;
   position: relative;
-  
+
 }
 
 .konf-item-outer {
