@@ -20,9 +20,7 @@ export class User {
     private _role!: string;
     private _status!: string;
 
-  constructor(fullName: string, phone: string) {
-    this._fullName = fullName;
-    this._phone = phone;
+  constructor() {
   }
 
   get status(): string {
@@ -144,5 +142,5 @@ export class User {
   set role(value: string) {
     this._role = value;
   }
-  
+
 }

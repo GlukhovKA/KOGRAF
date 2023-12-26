@@ -62,11 +62,7 @@ export class HeaderComponent implements OnInit {
     let email: string = this.loginForm.value.email;
     let request = {"email": email, "password": this.loginForm.value.password};
     this.http.post<LoginResponse>(`${this.baseUrl}/api/v1/auth/login`, JSON.stringify(request), this.httpOptions).subscribe((data: LoginResponse) => {
-      if (data.role == "MEMBER" || data.role == "LEADER") {
-        this.router.navigate(["/personal-account-client"]);
-      } else if (data.role == "ADMIN") {
-        this.router.navigate(["/personal-account-admin"]);
-      }
+      this.router.navigate(["/conferences"]);
       sessionStorage.setItem("user", JSON.stringify(data));
       this.loggedUser = data;
     });
@@ -107,15 +103,15 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  personal() {
+  /*personal() {
     if (this.loggedUser != null) {
-      if (this.loggedUser.role == "MEMBER" || this.loggedUser.role == "LEADER") {
-        this.router.navigate(["/personal-account-client"]);
+      if (this.loggedUser.role == "MEMBER") {
+        this.router.navigate(["/all-conferences"]);
       } else if (this.loggedUser.role == "ADMIN") {
-        this.router.navigate(["/personal-account-admin"]);
+        this.router.navigate(["/all-conferences"]);
       }
     }
-  }
+  }*/
 
   logout() {
     sessionStorage.clear();

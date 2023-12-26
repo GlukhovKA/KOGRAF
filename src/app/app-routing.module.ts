@@ -1,10 +1,10 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 import {HomeComponent} from "./system/home/home.component";
-import {PersonalAccountClientComponent} from "./system/personal-account-client/personal-account-client.component";
-import {PersonalAccountAdminComponent} from "./system/personal-account-admin/personal-account-admin.component";
-import {AboutCarwashComponent} from "./system/about-carwash/about-carwash.component";
-import { ConferenceClientComponent } from "./system/client-acc-conference/client-acc-conference";
+import {ConferencesComponent} from "./system/all-conferences/conferences.component";
+import {ConferenceComponent} from "./system/one-conference/conference.component";
+import {JobsComponent} from "./system/my-jobs/jobs.component";
+import {ConferenceJobsComponent} from "./system/conference-jobs/conference-jobs.component";
 
 const routes: Routes = [
   {
@@ -12,20 +12,20 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'personal-account-client',
-    component: PersonalAccountClientComponent
+    path: 'conferences',
+    component: ConferencesComponent
   },
   {
-    path: 'client-account-conference',
-    component: ConferenceClientComponent
+    path: 'conference/:id/jobs',
+    component: ConferenceJobsComponent
   },
   {
-    path: 'personal-account-admin',
-    component: PersonalAccountAdminComponent
+    path: 'conference/:id',
+    component: ConferenceComponent,
   },
   {
-    path: 'about-carwash',
-    component: AboutCarwashComponent
+    path: 'my-jobs',
+    component: JobsComponent
   },
   {
     path: '**',
@@ -42,4 +42,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

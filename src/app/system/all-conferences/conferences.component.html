@@ -1,10 +1,10 @@
 <header class="p-3 bg-dark text-white fixed-top"
-  style="margin-top: 87px;background-color: #33486E!important; z-index: 9;">
+        style="margin-top: 87px;background-color: #33486E!important; z-index: 9;">
   <div class="container">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="#" class="nav-link px-2 text-white head-text">Конференции</a></li>
-        <li><a href="#" class="nav-link px-2 text-white head-text">Мои статьи</a></li>
+        <li (click)="toPage('conferences')"><a class="nav-link px-2 text-white head-text">Конференции</a></li>
+        <li (click)="toPage('my-jobs')"><a class="nav-link px-2 text-white head-text">Мои статьи</a></li>
         <li><a href="#" class="nav-link px-2 text-white head-text">Контакты</a></li>
       </ul>
     </div>
@@ -16,42 +16,49 @@
 
     <div class="main">
       <div class="row d-flex align-items-center konf-pref">
-        <div class="d-inline-flex align-items-center col-10" >
-          <div class="pref-search-text text-black"> 
+        <div class="d-inline-flex align-items-center col-10">
+          <div class="pref-search-text text-black">
             Поиск конференции
           </div>
           <input class="input-search" type="text">
-          <a href="#" class="pref-options"><svg width="30" height="33" viewBox="0 0 30 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14.7778 4.44434L28.5555 4.44434" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M0.999985 28.5557L6.16665 28.5557" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M0.999977 4.44434L7.88887 4.44434" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M13.0555 28.5557L28.5555 28.5557" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M23.3889 16.5L28.5555 16.5" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M0.999977 16.5L16.5 16.5" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="11.3333" cy="4.44444" r="3.44444" transform="rotate(90 11.3333 4.44444)" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="19.9444" cy="16.5001" r="3.44444" transform="rotate(90 19.9444 16.5001)" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="9.6111" cy="28.5558" r="3.44444" transform="rotate(90 9.6111 28.5558)" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+          <a href="#" class="pref-options">
+            <svg width="30" height="33" viewBox="0 0 30 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14.7778 4.44434L28.5555 4.44434" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M0.999985 28.5557L6.16665 28.5557" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M0.999977 4.44434L7.88887 4.44434" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M13.0555 28.5557L28.5555 28.5557" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M23.3889 16.5L28.5555 16.5" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M0.999977 16.5L16.5 16.5" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="11.3333" cy="4.44444" r="3.44444" transform="rotate(90 11.3333 4.44444)" stroke="#212529"
+                      stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="19.9444" cy="16.5001" r="3.44444" transform="rotate(90 19.9444 16.5001)" stroke="#212529"
+                      stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="9.6111" cy="28.5558" r="3.44444" transform="rotate(90 9.6111 28.5558)" stroke="#212529"
+                      stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </a>
           <button type="button" class="btn btn-pref text-white">Применить</button>
         </div>
-        
-        <div class="d-inline-flex align-items-center justify-content-end col-2" >
-          <button type="button" class="btn btn-pref-add text-white" data-bs-toggle="modal" data-bs-target="#windowAddConf">+</button>
-          </div>
-        
+
+        <div class="d-inline-flex align-items-center justify-content-end col-2">
+          <button *ngIf="isAdmin()" type="button" class="btn btn-pref-add text-white" data-bs-toggle="modal"
+                  data-bs-target="#windowAddConf">+
+          </button>
+        </div>
+
       </div>
 
 
       <!--  -->
-      <div class="modal fade modal-signin "id="windowAddConf" tabindex="-1" aria-labelledby="windowAddConf" aria-hidden="true">
+      <div class="modal fade modal-signin " id="windowAddConf" tabindex="-1" aria-labelledby="windowAddConf"
+           aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document" id="login">
           <div class="modal-content rounded-5 shadow">
             <div class="modal-header p-5 pb-4 border-bottom-0">
               <h2 class="fw-bold mb-0" style="color: #2D2D2D;">Новая конференция</h2>
-              <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-      
+
             <div class="modal-body p-5 pt-0">
               <form [formGroup]="formAddConf">
 
@@ -71,65 +78,84 @@
                   <label for="floatingInput">Описание <span style="color: red;">*</span></label>
                 </div>
 
-                <select class="form-select form-select-lg mb-3 rounded-4" style="height: 58px;" (change)="updateStatus($event)" formControlName="status">
-                  <option [ngValue]="undefined" style="font-size: 16px;">Выберите</option>
-                  <option *ngFor="let status of statuses">{{status}}</option>
-                </select>
+<!--                <select class="form-select form-select-lg mb-3 rounded-4" style="height: 58px;"-->
+<!--                        (change)="updateStatus($event)" formControlName="status">-->
+<!--                  <option [ngValue]="undefined" style="font-size: 16px;">Выберите</option>-->
+<!--                  <option *ngFor="let status of statuses">{{ status }}</option>-->
+<!--                </select>-->
+
+<!--                <div class="form-floating mb-3">-->
+<!--                  <input type="datetime" class="form-control rounded-4" formControlName="date_start" id="floatingInput">-->
+<!--                  <label for="floatingInput">Дата начала<span style="color: red;">*</span></label>-->
+<!--                </div>-->
+
+<!--                <div class="form-floating mb-3">-->
+<!--                  <input type="datetime" class="form-control rounded-4" formControlName="date_end" id="floatingInput">-->
+<!--                  <label for="floatingInput">Дата окончания<span style="color: red;">*</span></label>-->
+<!--                </div>-->
 
                 <div class="form-floating mb-3">
-                  <input type="datetime" class="form-control rounded-4" formControlName="date_start" id="floatingInput">
-                  <label for="floatingInput">date_start <span style="color: red;">*</span></label>
+                  <select class="form-select rounded-4" style="height: 58px;" (change)="updateStatus($event)"
+                          formControlName="status">
+
+                    <option [ngValue]="undefined" style="font-size: 16px;">Выберите</option>
+                    <option *ngFor="let status of statuses">{{ status }}</option>
+                  </select>
+                  <label for="floatingInput">Статус<span style="color: red;">*</span></label>
                 </div>
 
                 <div class="form-floating mb-3">
-                  <input type="datetime" class="form-control rounded-4" formControlName="date_end" id="floatingInput">
-                  <label for="floatingInput">date_end <span style="color: red;">*</span></label>
+                  <input type="datetime-local" class="form-control rounded-4" formControlName="date_start" id="floatingInput">
+                  <label for="floatingInput">Дата начала <span style="color: red;">*</span></label>
                 </div>
 
+                <div class="form-floating mb-3">
+                  <input type="datetime-local" class="form-control rounded-4" formControlName="date_end" id="floatingInput">
+                  <label for="floatingInput">Дата Завершения <span style="color: red;">*</span></label>
+                </div>
 
-                <button class="w-100 btn btn-lg rounded-4 btn-primary" style="background-color: #33486E;" type="submit" (click)="addConf()" data-bs-dismiss="modal">Добавить</button>
-              
+                <button class="w-100 btn btn-lg rounded-4 btn-primary" style="background-color: #33486E;" type="submit"
+                        (click)="addConf()" data-bs-dismiss="modal">Добавить
+                </button>
+
               </form>
             </div>
           </div>
         </div>
       </div>
       <!--  -->
-      
+
 
       <div class="row konf-list">
 
         <div class="col-md-3 konf-item-outer" *ngFor="let conf of this.conferences">
 
           <div class="konf-item">
-            <div class="img-info-conf"> 
+            <div class="img-info-conf">
               <img src="../../../assets/pictures/conf-images/demo-img.png" alt="">
             </div>
-            <div class="general-info-conf"> 
-              <div class="konf-name">{{conf.title}}</div>
-              <div class="konf-organization text-black">{{conf.organization}}</div>
+            <div class="general-info-conf">
+              <div class="konf-name">{{ conf.title }}</div>
+              <div class="konf-organization text-black">{{ conf.organization }}</div>
             </div>
             <div class="second-info-conf">
-              <div class="konf-description text-black">Описание: {{conf.description}}</div>
-              <div class="konf-status text-black">Статус: {{conf.status}}</div>
-              <div class="konf-timeDate text-black">Дата начала: {{conf.startDate}}</div>
-              <div class="konf-timeDate text-black">Дата конца: {{conf.endDate}}</div>
-                <div class="row justify-content-end">
-                    <button type="button" class="btn btn-konf text-white px-1">Открыть</button>
-                </div>
+              <div class="konf-description text-black">Описание: {{ conf.description }}</div>
+              <div class="konf-status text-black">Статус: {{ this.statusMap.get(conf.status) }}</div>
+              <div class="konf-timeDate text-black">Дата начала: {{ conf.startDate }}</div>
+              <div class="konf-timeDate text-black">Дата конца: {{ conf.endDate }}</div>
+              <div class="row justify-content-end">
+                <button type="button" class="btn btn-konf text-white px-1" (click)="openConf(conf.id)">Открыть</button>
+              </div>
             </div>
 
           </div>
         </div>
 
 
-
       </div>
     </div>
   </div>
 </section>
-
-
 
 
 <!-- <section id="personal-account__client">

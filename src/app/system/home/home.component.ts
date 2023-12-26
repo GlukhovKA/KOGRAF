@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
+import {LoginResponse} from "../shared/model/login.response";
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,7 @@ import {Router} from "@angular/router";
 export class HomeComponent implements OnInit {
 
   form!: FormGroup;
+  loggedUser!: LoginResponse;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router
@@ -17,9 +19,21 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.checkLogin();
   }
 
-  onSubmit() {
+  checkLogin(): boolean {
+    let json: string | null = sessionStorage.getItem("user");
+    let obj: LoginResponse | null = json != null ? JSON.parse(json) : null;
+
+    if (obj != null) {
+      this.loggedUser = obj;
+      return true;
+    } else {
+      this.loggedUser = new LoginResponse();
+      this.loggedUser.email = '';
+      return false;
+    }
   }
 
   toPage(link: string) {

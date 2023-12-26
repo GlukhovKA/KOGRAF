@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, RadioControlValueAccessor, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Conference} from "../shared/model/conference";
 import {User} from "../shared/model/user";
 import {AppConstants} from "../../app.module";
@@ -8,20 +8,22 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {LoginResponse} from "../shared/model/login.response";
 
 @Component({
-  selector: 'app-personal-account-client',
-  templateUrl: './personal-account-client.component.html',
-  styleUrls: ['./personal-account-client.component.css']
+  selector: 'app-conferences',
+  templateUrl: './conferences.component.html',
+  styleUrls: ['./conferences.component.css']
 })
-export class PersonalAccountClientComponent implements OnInit {
+export class ConferencesComponent implements OnInit {
 
   conferences: Conference[] = [];
-  currentConference!: Conference;
+  // static currentConference: Conference;
+
   formAddConf!: FormGroup;
   currentUser!: User;
   loggedUser!: LoginResponse;
   private baseUrl = AppConstants.baseURL;
 
-  statuses: string[] = ['Класс A', 'Класс B', 'Класс C', 'Класс D', 'Класс E', 'Класс F', 'Класс G', 'Класс H'];
+  statuses: string[] = ['Открыта', 'Временно закрыта', 'Закрыта'];
+  statusMap: Map<string, string> = AppConstants.statusMap;
 
   httpOptions = {
     headers: new HttpHeaders(
@@ -32,26 +34,30 @@ export class PersonalAccountClientComponent implements OnInit {
   }
 
   constructor(private router: Router,
-    private formBuilder: FormBuilder,
+              private formBuilder: FormBuilder,
               private http: HttpClient) {
 
   }
 
 
-  checkLogin() {
+  checkLogin(): boolean {
     let json: string | null = sessionStorage.getItem("user");
     let obj: LoginResponse | null = json != null ? JSON.parse(json) : null;
 
     if (obj != null) {
       this.loggedUser = obj;
+      return true;
     } else {
       this.loggedUser = new LoginResponse();
       this.loggedUser.email = '';
+      return false;
     }
   }
 
   ngOnInit(): void {
-    this.checkLogin();
+    if (!this.checkLogin()) {
+      this.router.navigate(['']);
+    }
 
     //this.httpOptions.headers.set('Authorization', this.loggedUser != null ? this.loggedUser.token : '')
     this.http.get<User>(`${this.baseUrl}/api/v1/member/getUser?email=${this.loggedUser.email}`, this.httpOptions).subscribe((data: User) => {
@@ -59,9 +65,15 @@ export class PersonalAccountClientComponent implements OnInit {
       sessionStorage.setItem("user_info", JSON.stringify(data));
     })
 
-    this.http.get<Conference[]>(`${this.baseUrl}/api/v1/member/conferences`, this.httpOptions).subscribe((data: Conference[]) => {
-      this.conferences = data;
-    });
+    if (this.loggedUser.role == 'ADMIN') {
+      this.http.get<Conference[]>(`${this.baseUrl}/api/v1/admin/conferences`, this.httpOptions).subscribe((data: Conference[]) => {
+        this.conferences = data;
+      });
+    } else {
+      this.http.get<Conference[]>(`${this.baseUrl}/api/v1/member/conferences`, this.httpOptions).subscribe((data: Conference[]) => {
+        this.conferences = data;
+      });
+    }
 
     this.formAddConf = this.formBuilder.group({
       confName: new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -73,12 +85,33 @@ export class PersonalAccountClientComponent implements OnInit {
     });
   }
 
-  addConf() {
+  addConf(): void {
+    let dateStart: string = this.formAddConf.value.date_start.replace('T', ' ') + ':00';
+    let dateEnd: string = this.formAddConf.value.date_end.replace('T', ' ') + ':00';
+    let request = {
+      "title": this.formAddConf.value.confName,
+      "organization": this.formAddConf.value.organization,
+      "description": this.formAddConf.value.description,
+      "startDate": dateStart,
+      "endDate": dateEnd,
+      "status": this.statusMap.get(this.formAddConf.value.status)
+    };
+    this.http.post<Conference>(`${this.baseUrl}/api/v1/admin/conference/create`, JSON.stringify(request), this.httpOptions).subscribe((data: Conference) => {
+      this.conferences.push(data);
+    })
+  }
+
+  updateStatus(event: Event): void {
 
   }
 
-  updateStatus(event: Event) {
-   }
+  isAdmin(): boolean {
+    return this.loggedUser.role == 'ADMIN';
+  }
+
+  openConf(id: bigint): void {
+    this.router.navigate([`/conference/${id}`]);
+  }
 
   /* saveReview() {
     const text: string = this.formReview.controls['text'].value;
@@ -93,16 +126,9 @@ export class PersonalAccountClientComponent implements OnInit {
     });
     this.grade = 1;
   }
-
-  updateCurrentOrder(id: bigint) {
-    let order: Order | undefined = this.orders.find((e) => e.id == id);
-    if (order) {
-      this.currentOrder = order;
-    }
-  } */
-
-  logout() {
-    sessionStorage.clear();
+*/
+  toPage(link: string) {
+    this.router.navigate([link]);
   }
 
 }

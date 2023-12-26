@@ -1,6 +1,85 @@
+<header class="p-3 bg-dark text-white fixed-top"
+        style="margin-top: 87px;background-color: #33486E!important; z-index: 0;">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li (click)="toPage('conferences')"><a class="nav-link px-2 text-white head-text">Конференции</a></li>
+        <li (click)="toPage('my-jobs')"><a class="nav-link px-2 text-white head-text">Мои статьи</a></li>
+        <li><a href="#" class="nav-link px-2 text-white head-text">Контакты</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
 <!-- Мои статьи -->
 
-<section id="about-carwash">
+<section id="client_account_conference">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="main_conference" >
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="konf-name">Название</div>
+              <div class="konf-organization text-white">Организатор</div>
+
+            </div>
+            <div class="col-md-6 text-end">
+              <div class="konf-status">Статус конференции</div>
+              <div class="konf-timeDate">15:00 23.11.2023 - 15:00 31.12.23</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 konf-info-block">
+              <div class="konf-info text-white">Описание</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6" style="padding-right: 3px; padding-left: 0px;">
+              <div class="konf-section-block text-center">
+                <div class="konf-section-title text-white">Секция</div>
+              </div>
+            </div>
+            <div class="col-md-6" style="padding-left: 3px; padding-right: 0px;">
+              <div class="konf-lead-block text-center">
+                <div class="konf-section-lead text-white">Руководитель</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6" style="padding-right: 3px; padding-left: 0px;">
+              <div class="konf-section-block text-center">
+                <div class="konf-title text-white">Секция 1</div>
+              </div>
+            </div>
+            <div class="col-md-6" style="padding-left: 3px; padding-right: 0px;">
+              <div class="konf-lead-block text-center">
+                <div class="konf-lead text-white">Руководитель 1</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-center">
+            <div class="col-md-4">
+              <button type="button" class="btn btn-konf-reg text-white px-1" data-bs-toggle="modal" data-bs-target="#windowReview" >Регистрация</button>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!--<section id="about-carwash">
   <div class="container">
     <div class="row">
       <div class="col-lg-6">
@@ -67,9 +146,9 @@
           <p id="phone">+7 908 165-44-65</p>
         </div>
         <div class="map">
-          <!-- Вариант 3 (гугл с меткой) -->
-        <!--   <iframe src="https://www.google.com/maps/d/embed?mid=1NkPnbRvUKb1vcsLYbVa44PxX0D2c_c7S&ehbc=2E312F" width="615" height="318"></iframe> -->
-          <!-- Вариант 2 (яндекс с меткой) -->
+          &lt;!&ndash; Вариант 3 (гугл с меткой) &ndash;&gt;
+        &lt;!&ndash;   <iframe src="https://www.google.com/maps/d/embed?mid=1NkPnbRvUKb1vcsLYbVa44PxX0D2c_c7S&ehbc=2E312F" width="615" height="318"></iframe> &ndash;&gt;
+          &lt;!&ndash; Вариант 2 (яндекс с меткой) &ndash;&gt;
           <div style="position:relative;overflow:hidden;"><a
             href="https://yandex.ru/maps/47/nizhny-novgorod/?utm_medium=mapframe&utm_source=maps"
             style="color:#eee;font-size:12px;position:absolute;top:0px;">Нижний Новгород</a><a
@@ -77,7 +156,7 @@
             style="color:#eee;font-size:12px;position:absolute;top:14px;">Улица Белинского, 32 — Яндекс Карты</a>
             <iframe src="https://yandex.ru/map-widget/v1/-/CCUB7YvElB" width="615" height="318" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>
           </div>
-        <!--   Вариант 1
+        &lt;!&ndash;   Вариант 1
            <div style="position:relative;overflow:hidden;"><a
             href="https://yandex.ru/maps/47/nizhny-novgorod/?utm_medium=mapframe&utm_source=maps"
             style="color:#eee;font-size:12px;position:absolute;top:0px;">Нижний Новгород</a><a
@@ -85,11 +164,11 @@
             style="color:#eee;font-size:12px;position:absolute;top:14px;"></a>
             <iframe src="https://yandex.ru/map-widget/v1/-/CCQtRZwQkC" width="615" height="318" frameborder="1"
                     allowfullscreen="true" style="position:relative;border-radius: 5px;"></iframe>
-          </div> -->
+          </div> &ndash;&gt;
         </div>
         <button type="button" class="button" data-bs-toggle="modal" data-bs-target="#windowNote">Записаться ON-line
         </button>
       </div>
     </div>
   </div>
-</section>
+</section>-->
