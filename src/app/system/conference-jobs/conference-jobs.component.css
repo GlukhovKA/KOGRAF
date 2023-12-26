@@ -1,85 +1,188 @@
-#client_account_conference {
+#jobs {
   background: url(../../../assets/pictures/home/pattern.svg);
 }
 
-.main_conference {
+.main {
   background: url(../../../assets/pictures/home/page.svg);
-  padding: 180px 30px 0px 30px;
+  padding: 185px 35px 0px 35px;
   box-shadow: rgb(0, 0, 0, 0.5) 0px 0px 50px;
-  min-height: 1000px;
+  min-height: 100vh;
 }
 
-.fixed-top {
-  box-shadow: #000 0px 0px 25px;
-}
-.head-text {
-  font-size: 18px;
+.conf-name-adress {
+  font-size: 20px;
+  margin-left: 10px;
 }
 
-.btn-konf-reg {
-  background-color: #546585;
-  height: 60px;
-  border-radius: 30px;
-  min-width: 100%;
+.konf-information {
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 20px;
+  
+}
+
+.conf-title {
   font-size: 24px;
-  margin: 20px 0px 20px 0px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.conf-info-text {
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.conf-btn-users-list a {
+  color: #8C99B9;
+  text-decoration: dotted underline;
+  cursor: pointer;
+}
+
+.conf-section-title {
+  padding: 13px;
+  height: 47px;
+  background-color: #8C99B9;
+}
+
+.conf-info-section-item {
+  display: contents;
+}
+
+.conf-info-section {
+  font-size: 20px !important;
+  font-weight: 400 !important;
+  margin-bottom: 10px;
+  padding: 0px;
+  
+}
+
+.jobs-list-text {
+  border: #8C99B9 solid 1px;
+  background: rgb(255, 255, 255, 0.3);
+  padding: 13px;
+  height: 47px;
+  overflow: auto hidden;
+  
+}
+
+.conf-desc {
+  padding: 20px;
+  min-height: 300px;
+  background: rgb(255, 255, 255, 0.3);
 }
 
 .konf-name {
   font-size: 24px !important;
-  font-weight: bold !important;
+  font-weight: 400 !important;
   margin-bottom: 20px;
+  background-color: #8C99B9;
+  padding: 10px;
 }
+
+
+.konf-pref  {
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 10px;
+  margin-bottom: 20px;
+  height: 80px;
+}
+
+.input-search {
+  height: 47px;
+  margin-left: 20px;
+  width: 20vw;
+  min-width: 100px;
+  background: rgba(255, 255, 255, 0.5);
+  border: #8C99B9 solid 1px;
+}
+
+.pref-options {
+  margin-left: 20px;
+}
+
+
+
+.btn-pref {
+  background-color: #212529;
+  height: 47px;
+  border-radius: 0;
+  font-size: 16px;
+  margin-left: 20px;
+}
+.btn-pref-add {
+  background-color: #212529;
+  height: 47px;
+  width: 47px;
+  border-radius: 0;
+  font-size: 16px;
+  margin-left: 20px;
+}
+
+
+
+
+
+.konf-item {
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 0;
+  padding: 0px;
+  position: relative;
+  
+}
+
+.konf-item-outer {
+  z-index: 0;
+  padding: 6px;
+  position: relative;
+}
+
+.img-info-conf img {
+  width: 100%;
+  border: #8C99B9 solid 1px;
+  border-bottom: 0px;
+}
+
+.general-info-conf {
+  width: 100%;
+  border: #8C99B9 solid 1px;
+  padding: 10px;
+}
+
 
 .konf-organization {
-  font-size: 18px !important;
+  font-size: 20px !important;
   font-weight: 500 !important;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
+.second-info-conf {
+  border: #8C99B9 solid 1px;
+  border-top: 0px;
+  padding: 10px;
+}
+
+.btn-konf {
+  background-color: #212529;
+  height: 36px;
+  max-width:  100px;
+  border-radius: 0;
+  font-size: 16px;
+  margin: 20px 10px 3px 0px;
+}
+
+
+
 .konf-status {
-  font-size: 18px !important;
-  font-weight: 600 !important;
-  margin-bottom: 20px;
-  color: #1C3A71;
+  margin-top: 5px;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  bottom: 30px;
 }
 
 .konf-timeDate {
-  font-size: 18px !important;
-  font-weight: 600 !important;
-  color: #78314A;
+  margin-top: 5px;
+  font-size: 16px !important;
+  font-weight: 400 !important;
 }
-
-.konf-info-block {
-  padding: 20px 10px 20px 10px;
-  background-color: #B6BDCB;
-  font-size: 18px !important;
-  margin: 0px 0px 20px 0px;
-}
-
-.konf-section-block {
-  padding: 20px 10px 20px 10px;
-  background-color: #B6BDCB;
-  font-weight: 600 !important;  
-  font-size: 20px !important;
-  margin: 3px 0px 3px 0px;
-}
-
-.konf-lead-block {
-  padding: 20px 10px 20px 10px;
-  background-color: #B6BDCB;
-  font-weight: 600 !important;
-  font-size: 20px !important;
-  margin: 3px 0px 3px 0px;
-}
-
-.konf-title {
-  font-size: 18px !important;
-  font-weight: 500 !important;
-}
-
-.konf-lead {
-  font-size: 18px !important;
-  font-weight: 500 !important;  
-}
-

@@ -1,174 +1,187 @@
 <header class="p-3 bg-dark text-white fixed-top"
-        style="margin-top: 87px;background-color: #33486E!important; z-index: 0;">
+        style="margin-top: 87px;background-color: #33486E!important; z-index: 9;">
   <div class="container">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li (click)="toPage('conferences')"><a class="nav-link px-2 text-white head-text">Конференции</a></li>
-        <li (click)="toPage('my-jobs')"><a class="nav-link px-2 text-white head-text">Мои статьи</a></li>
+        <li (click)="toPage('my-jobs')"><a class="nav-link px-2 head-text">Мои статьи</a></li>
         <li><a href="#" class="nav-link px-2 text-white head-text">Контакты</a></li>
       </ul>
     </div>
   </div>
 </header>
 
-<!-- Мои статьи -->
-
-<section id="client_account_conference">
+<section id="my-jobs">
   <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="main_conference" >
 
-          <div class="row">
-            <div class="col-md-6">
-              <div class="konf-name">Название</div>
-              <div class="konf-organization text-white">Организатор</div>
-
-            </div>
-            <div class="col-md-6 text-end">
-              <div class="konf-status">Статус конференции</div>
-              <div class="konf-timeDate">15:00 23.11.2023 - 15:00 31.12.23</div>
-            </div>
+    <div class="main">
+      <div class="row d-flex align-items-center konf-pref">
+        <div class="d-inline-flex align-items-center col-10">
+          <div class="pref-search-text text-black">
+            Поиск конференции
           </div>
-
-          <div class="row">
-            <div class="col-md-12 konf-info-block">
-              <div class="konf-info text-white">Описание</div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6" style="padding-right: 3px; padding-left: 0px;">
-              <div class="konf-section-block text-center">
-                <div class="konf-section-title text-white">Секция</div>
-              </div>
-            </div>
-            <div class="col-md-6" style="padding-left: 3px; padding-right: 0px;">
-              <div class="konf-lead-block text-center">
-                <div class="konf-section-lead text-white">Руководитель</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6" style="padding-right: 3px; padding-left: 0px;">
-              <div class="konf-section-block text-center">
-                <div class="konf-title text-white">Секция 1</div>
-              </div>
-            </div>
-            <div class="col-md-6" style="padding-left: 3px; padding-right: 0px;">
-              <div class="konf-lead-block text-center">
-                <div class="konf-lead text-white">Руководитель 1</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row justify-content-center">
-            <div class="col-md-4">
-              <button type="button" class="btn btn-konf-reg text-white px-1" data-bs-toggle="modal" data-bs-target="#windowReview" >Регистрация</button>
-            </div>
-          </div>
-
-
-
+          <input class="input-search" type="text">
+          <a href="#" class="pref-options">
+            <svg width="30" height="33" viewBox="0 0 30 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14.7778 4.44434L28.5555 4.44434" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M0.999985 28.5557L6.16665 28.5557" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M0.999977 4.44434L7.88887 4.44434" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M13.0555 28.5557L28.5555 28.5557" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M23.3889 16.5L28.5555 16.5" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M0.999977 16.5L16.5 16.5" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="11.3333" cy="4.44444" r="3.44444" transform="rotate(90 11.3333 4.44444)" stroke="#212529"
+                      stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="19.9444" cy="16.5001" r="3.44444" transform="rotate(90 19.9444 16.5001)" stroke="#212529"
+                      stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="9.6111" cy="28.5558" r="3.44444" transform="rotate(90 9.6111 28.5558)" stroke="#212529"
+                      stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </a>
+          <button type="button" class="btn btn-pref text-white">Применить</button>
         </div>
+
+      </div>
+
+
+      <div class="row konf-list">
+        <div class="col-md-3 konf-item-outer" *ngFor="let job of this.jobs">
+
+          <div class="konf-item">
+            <div class="img-info-conf">
+              <img src="../../../assets/pictures/conf-images/demo-img.png" alt="">
+            </div>
+             <div class="general-info-conf">
+              <div class="konf-name">{{ job.title }}</div>
+              <div class="konf-organization text-black">Конференция: {{ job.conferenceId }}</div>
+            </div>
+            <div class="second-info-conf">
+              <div class="konf-description text-black">Описание: {{ job.description }}</div>
+              <div class="row justify-content-end">
+                <button type="button" class="btn btn-konf text-white px-1" >Открыть</button>
+              </div>
+            </div> 
+
+          </div>
+        </div>
+
+
       </div>
     </div>
   </div>
 </section>
 
 
-
-<!--<section id="about-carwash">
+<!-- <section id="personal-account__client">
   <div class="container">
     <div class="row">
-      <div class="col-lg-6">
-          <img src="../../../assets/pictures/modal/logotip.png" id="logo">
-        <div class="head">
-          <p><span>Автомойка Мир</span>+7 856 343-34-23</p>
+      <div class="col-md-6">
+        <a [routerLink]="['']" (click)="logout()" class="button__exit">Выход</a>
+        <div class="personal__information">
+
         </div>
+        <div class="client__notes">
+          <h1>История посещений</h1>
+          <div class="rectangle__client">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="review-tab"><h3>Дата</h3></div>
+              </div>
+              <div class="col-md-3">
+                <div class="review-tab"><h3>Услуга</h3></div>
+              </div>
+              <div class="col-md-3">
+                <div class="review-tab"><h3>Цена</h3></div>
+              </div>
+              <div class="col-md-3">
 
-        <div class="tabs">
-
-          <input type="radio" name="tab-btn" id="tab-btn-1" value="" class="b-radio" checked>
-          <label for="tab-btn-1">Отзывы</label>
-          <input type="radio" name="tab-btn" id="tab-btn-2" value="" class="b-radio">
-          <label for="tab-btn-2">Фотографии</label>
-          <input type="radio" name="tab-btn" id="tab-btn-3" value="" class="b-radio">
-          <label for="tab-btn-3">Прайс</label>
-
-          <div id="content-1">
-            <div class="rectangle" *ngFor="let order of orders">
-              <div class="general">
-                <div class="ellipse"></div>
-                <div class="about__client">
-                  <p><span>{{order.user.fullName}}</span> Сегодня</p>
+              </div>
+              <div class="review-scroll">
+                <div class="review-list">
+                  <div class="row" *ngFor="let order of this.orders">
+                    <div class="col-md-3">
+                      <div class="order-date">{{order.date}}</div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="order-service">{{order.service.name}}</div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="order-price">{{order.price}}</div>
+                    </div>
+                    <div class="col-md-3">
+                      <div *ngIf="!order.status" class="order-review-work">В работе</div>
+                      <button (click)="updateCurrentOrder(order.id)" type="button"
+                              *ngIf="order.status && order.grade == 0"
+                              class="button__order-review" data-bs-toggle="modal" data-bs-target="#windowReview"><span>Оценить</span>
+                      </button>
+                      <div *ngIf="order.status && order.grade > 0" class="order-review-complete">Готово</div>
+                    </div>
+                  </div>
                 </div>
-                <button class="button__clientreview">1 Отзыв</button>
-              </div>
-              <div class="textclient__review">
-                <p>{{order.text}}</p>
               </div>
             </div>
-          </div>
-
-          <div id="content-2">
-            <div class="photo__row1">
-              <img src="../../../assets/pictures/about-carwash/photo2.png">
-              <img src="../../../assets/pictures/about-carwash/photo1.png">
-            </div>
-            <div class="photo__row2">
-              <img src="../../../assets/pictures/about-carwash/photo3.png">
-              <img src="../../../assets/pictures/about-carwash/photo4.png">
-              <img src="../../../assets/pictures/about-carwash/photo5.png">
-            </div>
-          </div>
-
-          <div id="content-3">
-            <div class="price" *ngFor="let ser of services">
-              <div class="about__carwash">
-              <h3>{{ser.name}}</h3>
-              <p>Описание</p>
-              </div>
-              <div class="price__carwash">
-              <p class="price__text"><span>{{ser.price}}</span> руб</p>
-              </div>
-              <hr>
-            </div>
-
           </div>
         </div>
       </div>
-      <div class="col-lg-6">
-        <div class="info">
-          <img src="../../../assets/pictures/home/space.png">
-          <p>г. Нижний Новгород <br> Белинского 32 а, круглосуточно</p>
-          <p id="phone">+7 908 165-44-65</p>
-        </div>
-        <div class="map">
-          &lt;!&ndash; Вариант 3 (гугл с меткой) &ndash;&gt;
-        &lt;!&ndash;   <iframe src="https://www.google.com/maps/d/embed?mid=1NkPnbRvUKb1vcsLYbVa44PxX0D2c_c7S&ehbc=2E312F" width="615" height="318"></iframe> &ndash;&gt;
-          &lt;!&ndash; Вариант 2 (яндекс с меткой) &ndash;&gt;
-          <div style="position:relative;overflow:hidden;"><a
-            href="https://yandex.ru/maps/47/nizhny-novgorod/?utm_medium=mapframe&utm_source=maps"
-            style="color:#eee;font-size:12px;position:absolute;top:0px;">Нижний Новгород</a><a
-            href="https://yandex.ru/maps/47/nizhny-novgorod/house/ulitsa_belinskogo_32/YEoYfw5lTkIEQFtsfX9wcXRmZg==/?ll=43.995773%2C56.310852&utm_medium=mapframe&utm_source=maps&z=17.09"
-            style="color:#eee;font-size:12px;position:absolute;top:14px;">Улица Белинского, 32 — Яндекс Карты</a>
-            <iframe src="https://yandex.ru/map-widget/v1/-/CCUB7YvElB" width="615" height="318" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>
+      <div class="col-md-6">
+        <div class="view__process">
+          <h1>Наблюдать за процессом</h1>
+          <div class="video">
+                       <iframe width="632" height="364" src="https://www.youtube.com/embed/5g41cpe2d7M"
+                               title="YouTube video player"
+                               frameborder="0"
+                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                               allowfullscreen></iframe>
           </div>
-        &lt;!&ndash;   Вариант 1
-           <div style="position:relative;overflow:hidden;"><a
-            href="https://yandex.ru/maps/47/nizhny-novgorod/?utm_medium=mapframe&utm_source=maps"
-            style="color:#eee;font-size:12px;position:absolute;top:0px;">Нижний Новгород</a><a
-            href="https://yandex.ru/maps/47/nizhny-novgorod/?ll=44.005986%2C56.326887&utm_medium=mapframe&utm_source=maps&z=11"
-            style="color:#eee;font-size:12px;position:absolute;top:14px;"></a>
-            <iframe src="https://yandex.ru/map-widget/v1/-/CCQtRZwQkC" width="615" height="318" frameborder="1"
-                    allowfullscreen="true" style="position:relative;border-radius: 5px;"></iframe>
-          </div> &ndash;&gt;
         </div>
-        <button type="button" class="button" data-bs-toggle="modal" data-bs-target="#windowNote">Записаться ON-line
-        </button>
+      </div>
+    </div>
+  </div> -->
+
+<!-- FORM REVIEW -->
+<!-- <div class="modal fade" id="windowReview" tabindex="-1" aria-labelledby="windowCode" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" id="code">
+      <div class="modal-content" id="background__review">
+        <h5 class="modal-title">Отзыв</h5>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="title__review">
+                  <img src="../../../assets/pictures/modal/logotip.png">
+                  <div class="text__review">
+                    <h3>{{currentOrder.carWash.name}}</h3>
+                    <button class="rectangle__address">{{currentOrder.carWash.location}}</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <form [formGroup]="formReview">
+                  <div class="form-group col-12">
+                    <h5>Поделитесь своими впечатлениями об этом месте</h5>
+                    <p><textarea formControlName="text"></textarea></p>
+                    <div class="rating-area">
+                      <input type="radio" id="star-5" name="rating" value="5" (click)="getGrade(5)">
+                      <label for="star-5" title="Оценка «5»"></label>
+                      <input type="radio" id="star-4" name="rating" value="4" (click)="getGrade(4)">
+                      <label for="star-4" title="Оценка «4»"></label>
+                      <input type="radio" id="star-3" name="rating" value="3" (click)="getGrade(3)">
+                      <label for="star-3" title="Оценка «3»"></label>
+                      <input type="radio" id="star-2" name="rating" value="2" (click)="getGrade(2)">
+                      <label for="star-2" title="Оценка «2»"></label>
+                      <input checked type="radio" id="star-1" name="rating" value="1" (click)="getGrade(1)">
+                      <label for="star-1" title="Оценка «1»"></label>
+                    </div>
+                  </div>
+                  <button type="submit" id="button__save" data-bs-target="#windowReview" data-bs-dismiss="modal"
+                          (click)="saveReview()">
+                    Сохранить
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</section>-->
+</section> -->

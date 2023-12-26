@@ -9,13 +9,6 @@
   min-height: 100vh;
 }
 
-.fixed-top {
-  box-shadow: #000 0px 0px 25px;
-}
-.head-text {
-  font-size: 18px;
-}
-
 .konf-pref  {
   background-color: rgba(255, 255, 255, 0.7);
   padding: 10px;

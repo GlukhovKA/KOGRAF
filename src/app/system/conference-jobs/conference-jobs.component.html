@@ -1,5 +1,5 @@
 <header class="p-3 bg-dark text-white fixed-top"
-  style="margin-top: 87px;background-color: #33486E!important; z-index: 0;">
+  style="margin-top: 87px;background-color: #33486E!important; z-index: 9;">
   <div class="container">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
@@ -11,67 +11,74 @@
   </div>
 </header>
 
-<!-- Список пользователей -->
+<!-- Сама конференция админка / обычная -->
 
-<section id="client_account_conference">
+
+<section id="jobs">
   <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="main_conference" >
 
-          <div class="row">
-            <div class="col-md-6">
-              <div class="konf-name">Название</div>
-              <div class="konf-organization text-white">Организатор</div>
-
-            </div>
-            <div class="col-md-6 text-end">
-              <div class="konf-status">Статус конференции</div>
-              <div class="konf-timeDate">15:00 23.11.2023 - 15:00 31.12.23</div>
-            </div>
+    <div class="main">
+      <div class="row d-flex align-items-center konf-pref">
+        <div class="d-inline-flex align-items-center col-10">
+          <div class="conf-name-adress text-black">
+            Конференции / {{this.currentConference.title}}
           </div>
-
-          <div class="row">
-            <div class="col-md-12 konf-info-block">
-              <div class="konf-info text-white">Описание</div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6" style="padding-right: 3px; padding-left: 0px;">
-              <div class="konf-section-block text-center">
-                <div class="konf-section-title text-white">Секция</div>
-              </div>
-            </div>
-            <div class="col-md-6" style="padding-left: 3px; padding-right: 0px;">
-              <div class="konf-lead-block text-center">
-                <div class="konf-section-lead text-white">Руководитель</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6" style="padding-right: 3px; padding-left: 0px;">
-              <div class="konf-section-block text-center">
-                <div class="konf-title text-white">Секция 1</div>
-              </div>
-            </div>
-            <div class="col-md-6" style="padding-left: 3px; padding-right: 0px;">
-              <div class="konf-lead-block text-center">
-                <div class="konf-lead text-white">Руководитель 1</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row justify-content-center">
-            <div class="col-md-4">
-              <button type="button" class="btn btn-konf-reg text-white px-1" data-bs-toggle="modal" data-bs-target="#windowReview" >Регистрация</button>
-            </div>
-          </div>
-
-
-
         </div>
+      </div>
+
+
+
+      <div class="row konf-information">
+        <div class="row" style="margin-bottom: 20px;">
+          <div class="col-12 conf-title text-black">{{this.currentConference.title}}</div>
+          <div class="col-4 conf-info-text text-black">Название: {{this.currentConference.organization}}</div>
+          <div class="col-4 conf-info-text text-black text-center">Дата начала: {{this.currentConference.startDate}}</div>
+          <div class="col-4 conf-info-text text-black text-end"><span *ngIf="isAdmin()">Количество участников:{{this.currentConference.status}}</span></div>
+          <div class="col-4 conf-info-text text-black ">Статус: {{this.currentConference.status}}</div>
+          <div class="col-4 conf-info-text text-black text-center">Дата завершения: {{this.currentConference.endDate}}
+          </div>
+          <div class="col-4 conf-info-text conf-btn-users-list text-black text-end"><a *ngIf="isAdmin()" (click)="downloadJobs()">Скачать все работы</a></div>
+        </div>
+
+        <div class="row" style="margin-bottom: 20px;">
+          <div class="row conf-info-section-item">
+            <div class="col-3 conf-info-section">
+              <div class="conf-section-title text-center text-white">Фамилия И.О.</div>
+            </div>
+            <div class="col-3 conf-info-section" style="padding-left: 5px;">
+              <div class="conf-section-title text-center text-white">Название</div>
+            </div>
+            <div class="col-2 conf-info-section" style="padding-left: 5px;">
+              <div class="conf-section-title text-center text-white">Секция</div>
+            </div>
+            <div class="col-2 conf-info-section" style="padding-left: 5px;">
+              <div class="conf-section-title text-center text-white">Изменен</div>
+            </div>
+            <div class="col-2 conf-info-section" style="padding-left: 5px;">
+              <div class="conf-section-title text-center text-white">Управление</div>
+            </div>
+          </div>
+
+          <div class="row conf-info-section-item" *ngFor="let job of this.jobs">
+            <div class="col-3 conf-info-section">
+              <div class="jobs-list-text text-center text-black">{{job.userId}}</div>
+            </div>
+            <div class="col-3 conf-info-section" style="padding-left: 5px;">
+              <div class="jobs-list-text text-center text-black">{{job.title}}</div>
+            </div>
+            <div class="col-2 conf-info-section" style="padding-left: 5px;">
+              <div class="jobs-list-text text-center text-black">{{job.sectionId}}</div>
+            </div>
+            <div class="col-2 conf-info-section" style="padding-left: 5px;">
+              <div class="jobs-list-text text-center text-black">{{job.dateTime}}</div>
+            </div>
+            <div class="col-2 conf-info-section" style="padding-left: 5px;">
+              <div class="jobs-list-text text-center text-black">{{job.id}}</div>
+            </div>
+          </div>
+        </div>
+        
+        <!--<div class="konf-description text-black">Описание: {{conf.description}}</div>-->
       </div>
     </div>
   </div>

@@ -19,7 +19,15 @@
   --userfont: Gilroy-wt, sans-serif;
 }
 
-/* BOOTSTRAP SETTINGS */
+/* доп хедер после авторизации */
+.fixed-top {
+  box-shadow: #000 0px 0px 25px;
+}
+.head-text {
+  font-size: 18px;
+  cursor: pointer;
+}
+
 
 /* gutter 30px (15px + 15px). Comment this code for default gutter start at 1.5rem (24px) wide. */
 .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl { --bs-gutter-x: .5rem; }

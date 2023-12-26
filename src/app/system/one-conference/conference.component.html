@@ -14,66 +14,71 @@
 <!-- Сама конференция админка / обычная -->
 
 
-<section id="personal-account__admin">
+<section id="conference">
   <div class="container">
 
     <div class="main">
       <div class="row d-flex align-items-center konf-pref">
-        <div class="d-inline-flex align-items-center col-10" >
-          <div class="pref-search-text text-black">
-            Поиск конференции
+        <div class="d-inline-flex align-items-center col-10">
+          <div class="conf-name-adress text-black">
+            Конференции / {{this.currentConference.title}}
           </div>
-          <input class="input-search" type="text">
-          <a href="#" class="pref-options"><svg width="30" height="33" viewBox="0 0 30 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14.7778 4.44434L28.5555 4.44434" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M0.999985 28.5557L6.16665 28.5557" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M0.999977 4.44434L7.88887 4.44434" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M13.0555 28.5557L28.5555 28.5557" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M23.3889 16.5L28.5555 16.5" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M0.999977 16.5L16.5 16.5" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="11.3333" cy="4.44444" r="3.44444" transform="rotate(90 11.3333 4.44444)" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="19.9444" cy="16.5001" r="3.44444" transform="rotate(90 19.9444 16.5001)" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="9.6111" cy="28.5558" r="3.44444" transform="rotate(90 9.6111 28.5558)" stroke="#212529" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </a>
-          <button type="button" class="btn btn-pref text-white" (click)="checkUsers()">Применить</button>
         </div>
-
-        <div class="d-inline-flex align-items-center justify-content-end col-2" >
-          <button type="button" class="btn btn-pref-add text-white" data-bs-toggle="modal" data-bs-target="#windowAddConf">+</button>
-          </div>
-
       </div>
 
 
 
-      <div class="row konf-list">
-
-        <!-- <div class="col-md-3 konf-item-outer" *ngFor="let conf of this.conferences"> -->
-
-          <div class="konf-item">
-            <div class="img-info-conf">
-              <img src="../../../assets/pictures/conf-images/demo-img.png" alt="">
+      <div class="row konf-information">
+        <div class="row" style="margin-bottom: 20px;">
+          <div class="col-12 conf-title text-black">{{this.currentConference.title}}</div>
+          <div class="col-4 conf-info-text text-black">Название: {{this.currentConference.organization}}</div>
+          <div class="col-4 conf-info-text text-black text-center">Дата начала: {{this.currentConference.startDate}}</div>
+          <div class="col-4 conf-info-text text-black text-end"><span *ngIf="isAdmin()">Количество участников:{{this.currentConference.status}}</span></div>
+          <div class="col-4 conf-info-text text-black ">Статус: {{this.currentConference.status}}</div>
+          <div class="col-4 conf-info-text text-black text-center">Дата завершения: {{this.currentConference.endDate}}
+          </div>
+          <div class="col-4 conf-info-text conf-btn-users-list text-black text-end"><a *ngIf="isAdmin()" (click)="checkUsers()">Перейти к списку участников</a></div>
+        </div>
+        <div class="row" style="margin-bottom: 20px;">
+          <div class="row conf-info-section-item">
+            <div class="col-6 conf-info-section" style="padding-right: 5px;">
+              <div class="conf-section-title text-center text-white">Секция</div>
             </div>
-            <div class="general-info-conf">
-              <!-- <div class="konf-name">{{conf.title}}</div>
-              <div class="konf-organization text-black">{{conf.organization}}</div>
+            <div class="col-6 conf-info-section" style="padding-left: 5px;">
+              <div class="conf-section-title text-center text-white">Руководитель</div>
             </div>
-            <div class="second-info-conf">
-              <div class="konf-description text-black">Описание: {{conf.description}}</div>
-              <div class="konf-status text-black">Статус: {{conf.status}}</div>
-              <div class="konf-timeDate text-black">Дата начала: {{conf.startDate}}</div>
-              <div class="konf-timeDate text-black">Дата конца: {{conf.endDate}}</div> -->
-                <!-- <div class="row justify-content-end">
-                    <button type="button" class="btn btn-konf text-white px-1">Открыть</button>
-                </div>
-            </div> -->
+          </div>
+
+          <div class="row conf-info-section-item" *ngFor="let section of this.sections">
+            <div class="col-6 conf-info-section" style="padding-right: 5px;">
+              <div class="section-text text-center text-black">{{section.title}}</div>
+            </div>
+            <div class="col-6 conf-info-section" style="padding-left: 5px;">
+              <div class="section-text text-center text-black">{{section.leaderName}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="row align-items-center" style="margin-bottom: 20px;">
+          <div class="col-12 conf-desc">
+            <div class="conf-info-text text-black" style="margin: 0px;">Описание: {{this.currentConference.description}}</div>
+          </div>
+        </div>
+
+        <div class="row align-items-center" style="margin-bottom: 20px;">
+          <div class="col-4 conf-info-text text-black">
+            
+          </div>
+          <div class="col-4 conf-info-text text-black text-center">
+            <button type="button" class="btn btn-pref text-white" *ngIf="isAdmin()">Изменить</button>
+            <button type="button" class="btn btn-pref text-white"*ngIf="!isAdmin()">Добавить</button>
+          </div>
+          <div class="col-4 conf-info-text text-black text-end">
 
           </div>
         </div>
 
-
-
+        
+        <!--<div class="konf-description text-black">Описание: {{conf.description}}</div>-->
       </div>
     </div>
   </div>

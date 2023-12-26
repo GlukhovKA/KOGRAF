@@ -1,370 +1,455 @@
-#about-carwash {
-  background: url("../../../assets/pictures/modal/Background2.png") 0 0 no-repeat;
-  height: 100vh;
+#my-jobs {
+  background: url(../../../assets/pictures/home/pattern.svg);
+}
+
+.main {
+  background: url(../../../assets/pictures/home/page.svg);
+  padding: 185px 35px 0px 35px;
+  box-shadow: rgb(0, 0, 0, 0.5) 0px 0px 50px;
+  min-height: 100vh;
+}
+
+.konf-pref  {
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 10px;
+  margin-bottom: 20px;
+  height: 80px;
+}
+
+.input-search {
+  height: 47px;
+  margin-left: 20px;
+  width: 20vw;
+  min-width: 100px;
+  background: rgba(255, 255, 255, 0.5);
+  border: #8C99B9 solid 1px;
+}
+
+.pref-options {
+  margin-left: 20px;
+}
+
+
+
+.btn-pref {
+  background-color: #212529;
+  height: 47px;
+  border-radius: 0;
+  font-size: 16px;
+  margin-left: 20px;
+}
+.btn-pref-add {
+  background-color: #212529;
+  height: 47px;
+  width: 47px;
+  border-radius: 0;
+  font-size: 16px;
+  margin-left: 20px;
+}
+
+
+.konf-list  {
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 3px;
+}
+
+
+.konf-item {
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 0;
+  padding: 0px;
+  position: relative;
+  
+}
+
+.konf-item-outer {
+  z-index: 0;
+  padding: 6px;
+  position: relative;
+}
+
+.img-info-conf img {
+  width: 100%;
+  border: #8C99B9 solid 1px;
+  border-bottom: 0px;
+}
+
+.general-info-conf {
+  width: 100%;
+  border: #8C99B9 solid 1px;
+  padding: 10px;
+}
+
+.konf-name {
+  font-size: 24px !important;
+  font-weight: 400 !important;
+  margin-bottom: 20px;
+  background-color: #8C99B9;
+  padding: 10px;
+}
+
+.konf-organization {
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  margin-bottom: 25px;
+}
+
+.second-info-conf {
+  border: #8C99B9 solid 1px;
+  border-top: 0px;
+  padding: 10px;
+}
+
+.btn-konf {
+  background-color: #212529;
+  height: 36px;
+  max-width:  100px;
+  border-radius: 0;
+  font-size: 16px;
+  margin: 20px 10px 3px 0px;
+}
+
+
+
+.konf-status {
+  margin-top: 5px;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  bottom: 30px;
+}
+
+.konf-timeDate {
+  margin-top: 5px;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+}
+
+.form-select {
+  
+}
+
+/* #personal-account__client {
+  background-image: url("../../../assets/pictures/modal/Background2.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 1080px;
   width: 100vw;
   position: relative;
-  background-size: cover;
 }
 
-.content {
-  margin-top: 485px;
-}
-
-.custom-radio {
-  width: 144px;
-  height: 35px;
-  background: var(--accent);
-  border-radius: 50px;
-  font-weight: 900;
-  font-size: 24px;
-  color: var(--dark);
-  border: 0;
-  line-height: 30px;
-  text-align: center;
+.button__exit {
+  position: absolute;
+  z-index: 1001;
+  margin-left: 1350px;
+  margin-top: 150px;
+  text-decoration: none;
+  color: #F6E22B;
+  font-size: 20px;
+  line-height: 24px;
   text-transform: uppercase;
-  margin-right: 71px;
+  cursor: pointer;
 }
 
+.client__notes {
+  margin-top: 426px;
+  width: 635px;
+}
 
-.button__photo {
-  width: 202px;
-  height: 35px;
-  border-radius: 50px;
+.client__notes h1 {
+  color: var(--accent);
   font-weight: 900;
-  font-size: 24px;
-  color: var(--dark);
-  border: 0;
-  line-height: 30px;
-  text-align: center;
   text-transform: uppercase;
-  margin-right: 71px;
 }
 
-.rectangle {
+.rectangle__client {
   width: 632px;
-  height: 195px;
-  background: rgba(255, 255, 255, 0.6);
+  height: 365px;
+  background: rgba(43, 43, 43, 0.37);
   backdrop-filter: blur(9px);
   border-radius: 25px;
-  margin-top: 25px;
+  position: relative;
 }
 
-#content-1 {
-  overflow-y: scroll;
-  height: 435px;
+.review-tab {
+  margin-top: 5px;
+  margin-left: 25px;
 }
 
-#content-1::-webkit-scrollbar {
-  width: 13px;   /* ширина scrollbar */
+.review-tab h3 {
+  color:var(--accent);
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
-#content-1::-webkit-scrollbar-track {
-  background: transparent;        /* цвет дорожки */
-}
-#content-1::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.43);
-  border-radius: 22px;
-}
-
-#content-2 {
-  overflow-y: scroll;
-  height: 435px;
+.review-scroll {
+  height: 320px;
+  width: 98%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-#content-2::-webkit-scrollbar {
-  width: 13px;   /* ширина scrollbar */
+.review-scroll::-webkit-scrollbar {
+  width: 13px;
+  background-color: #f6e22b00;
 }
 
-#content-2::-webkit-scrollbar-track {
-  background: transparent;        /* цвет дорожки */
-}
-#content-2::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.43);
-  border-radius: 22px;
+.review-scroll::-webkit-scrollbar-thumb {
+  background-color: #f6e22b;
+  border-radius: 24px;
 }
 
-#content-3 {
-  overflow-y: scroll;
-  height: 435px;
+.review-list {
+  margin-left: 5px;
 }
 
-#content-3::-webkit-scrollbar {
-  width: 13px;   /* ширина scrollbar */
+.order-date {
+  background-color: white;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  color: var(--dark);
+  margin-top: 5px;
+  padding-top: 3px;
+  padding-left: 20px;
+  text-align: left;
+  border-radius: 5px;
+  border: 0;
+  width: 120%;
+  height: 45px;
 }
 
-#content-3::-webkit-scrollbar-track {
-  background: transparent;        /* цвет дорожки */
-}
-#content-3::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.43);
-  border-radius: 22px;
-}
-
-.general {
-  white-space: nowrap;
-}
-
-.ellipse {
-  width: 38px;
-  height: 38px;
-  background: #C4C4C4;
-  border-radius: 50%;
-  margin-left: 41px;
-  float: left;
-  margin-top: 39px;
+.order-service {
+  background-color: white;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  color: var(--dark);
+  margin-top: 5px;
+  padding-top: 3px;
+  padding-left: 20px;
+  text-align: left;
+  border-radius: 5px;
+  border: 0;
+  width: 120%;
+  height: 45px;
 }
 
-.about__client p {
-  white-space: nowrap;
+.order-price {
+  background-color: white;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  color: var(--dark);
+  margin-top: 5px;
+  padding-top: 3px;
+  padding-left: 20px;
+  text-align: left;
+  border-radius: 5px;
+  border: 0;
+  width: 90%;
+  height: 45px;
+}
+
+.button__order-review {
+  background-color:#F6E22B;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  color: var(--dark);
+  margin-top: 5px;
+  text-align: center;
+  border-radius: 5px;
+  border: 0;
+  width: 90%;
+  height: 45px;
+}
+
+.order-review-work {
+  background-color: var(--work);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  color: var(--dark);
+  margin-top: 5px;
+  text-align: center;
+  border-radius: 5px;
+  border: 0;
+  width: 90%;
+  height: 45px;
+}
+
+.order-review-complete {
+  background-color: var(--complete);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  color: var(--dark);
+  margin-top: 5px;
+  text-align: center;
+  border-radius: 5px;
+  border: 0;
+  width: 90%;
+  height: 45px;
+}
+
+.button__review {
+  width: 225px;
+  height: 47px;
+  background: var(--accent);
+  box-shadow: 0 4px 25px var(--accent);
+  border-radius: 44px;
+  font-weight: 700;
+  font-size: 23px;
+  color: var(--dark);
+  margin: 172px 41px;
+  border: 0;
+}
+
+.view__process {
+  margin-top: 426px;
+  float: right;
+}
+
+.view__process h1 {
+  color: var(--accent);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.video iframe {
+  border-radius: 25px;
+}
+
+.modal-body {
+  padding: 0;
+  margin-left: 100px;
+  margin-right: 100px;
+  position: relative;
+}
+
+#background__review {
+  background-image: url("../../../assets/pictures/modal/Background2.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 838px;
+  height: 519px;
+  background-color:rgba(0,0,0,.9);
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 4px 139px var(--accent);
+  border: 0;
+}
+
+.form-group h5 {
   font-weight: 400;
   font-size: 14px;
-  line-height: 16px;
-  color: var(--dark);
-  float: left;
-  margin-left: 23px;
-  margin-top: 34px;
+  margin-top: 35px;
 }
 
-.about__client span {
+.form-group textarea {
+  width: 100%;
+  height: 100px;
+  border-radius: 5px;
+}
+
+.modal-title {
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+  margin-top: 70px;
+  font-size: 41px;
+  color: var(--accent);
+}
+
+.modal  {
+  background:rgba(0,0,0,.4);
+  backdrop-filter: blur(7px);
+}
+
+#button__save {
+  float: right;
+  width: 150px;
+  height: 47px;
+  background: var(--accent);
+  box-shadow: 0 4px 25px var(--accent);
+  border-radius: 44px;
+  color: var(--dark);
+  font-weight: 700;
+  font-size: 20px;
+  border: 0;
+  margin-top: 10px;
+}
+
+.rating-area {
+  overflow: hidden;
+  width: 265px;
+}
+.rating-area:not(:checked) > input {
+  display: none;
+}
+.rating-area:not(:checked) > label {
+  float: right;
+  width: 49px;
+  padding: 0;
+  cursor: pointer;
+  font-size: 49px;
+  line-height: 49px;
+  color: #C4C4C4;
+  text-shadow: 1px 1px #bbb;
+}
+.rating-area:not(:checked) > label:before {
+  content: '★';
+ margin-left: -20px;
+}
+.rating-area > input:checked ~ label {
+  color: var(--accent);
+  text-shadow: 1px 1px #c60;
+}
+.rating-area:not(:checked) > label:hover,
+.rating-area:not(:checked) > label:hover ~ label {
+  color: var(--accent);
+}
+.rating-area > input:checked + label:hover,
+.rating-area > input:checked + label:hover ~ label,
+.rating-area > input:checked ~ label:hover,
+.rating-area > input:checked ~ label:hover ~ label,
+.rating-area > label:hover ~ input:checked ~ label {
+  color: var(--accent);
+  text-shadow: 1px 1px goldenrod;
+}
+.rate-area > label:active {
+  position: relative;
+}
+
+.title__review img {
+  float: left;
+  width: 66px;
+  height: 66px;
+  margin-top: 10px;
+}
+
+.title__review h3 {
   font-weight: 900;
   font-size: 24px;
   line-height: 30px;
   text-transform: uppercase;
-  color: var(--dark);
-  display: block;
 }
 
-.textclient__review p {
-  position: absolute;
-  left: 41px;
-  top: 105px;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 28px;
-  color: var(--dark);
-  width: 550px;
-}
-
-.button__clientreview {
-  width: 72px;
+.rectangle__address {
+  width: auto;
   height: 26px;
-  background: #F6E22B;
+  background: var(--accent);
   border-radius: 28px;
-  border: 0;
-  float: left;
-  margin-left: 37px;
-  margin-top: 34px;
   font-weight: 700;
   font-size: 14px;
   line-height: 17px;
   color: var(--dark);
-}
-
-.reviews h3 {
-  font-weight: 900;
-  font-size: 24px;
-  line-height: 30px;
-  text-transform: uppercase;
-  color: #000000;
-  margin-left: 23px;
-
-}
-
-.tabs {
-  margin-top: 423px;
-}
-
-.tabs>input[type="radio"] {
-  display: none;
-}
-
-.tabs>input[type="radio"] {
-  width: 202px;
-  height: 35px;
-  background: #FFFFFF;
-  border-radius: 50px;
-}
-
-.tabs>input[type="radio"]:checked+label {
-  height: 35px;
-  background: #F6E22B;
-  border-radius: 50px;
-  font-weight: 900;
-  font-size: 24px;
-  line-height: 30px;
-  text-align: center;
-  text-transform: uppercase;
-  color: #000000;
-  padding-left: 25px;
-  padding-right: 25px;
-}
-
-.tabs>div {
-  /* скрыть контент по умолчанию */
-  display: none;
-  padding: 10px 15px;
-  border-radius: 4px;
-}
-
-/* отобразить контент, связанный с вабранной радиокнопкой (input type="radio") */
-#tab-btn-1:checked~#content-1,
-#tab-btn-2:checked~#content-2,
-#tab-btn-3:checked~#content-3 {
-  display: block;
-}
-
-.tabs>label {
-  display: inline-block;
-  text-align: center;
-  vertical-align: middle;
-  user-select: none;
-  background-color: #fff;
-  border: 1px solid transparent;
-  font-weight: 900;
-  font-size: 24px;
-  line-height: 30px;
-  text-transform: uppercase;
-  color: #000000;
-  border-radius: 50px;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
-  cursor: pointer;
-  margin-bottom: 10px;
-  margin-right: 71px;
-  padding-left: 25px;
-  padding-right: 25px;
-}
-
-.tabs>label:first-of-type {
-  margin-left: 0;
-}
-
-.photo__row1 {
-  height: 196px;
-  margin-bottom: 14px;
-}
-
-.photo__row1 img {
-  margin-right: 20px;
-}
-
-.photo__row2 {
-  height: 301px;
-  margin-bottom: 14px;
-}
-
-.photo__row2 img {
-  float: left;
-  margin-bottom: 14px;
-  margin-right: 20px;
-}
-
-.price h3 {
-  font-weight: 900;
-  font-size: 24px;
-  line-height: 30px;
-  text-transform: uppercase;
-}
-
-.price p {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 16px;
-}
-
-.price span {
-  font-weight: 700;
-  font-size: 34px;
-  line-height: 41px;
-}
-
-.price hr {
-  width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.71);
-}
-
-.price__carwash {
-  width: 160px;
-  float: right;
-}
-
-.about__carwash {
-  width: 350px;
-  float: left;
-}
-
-.map {
-  margin-top: 140px;
-  float: right;
-}
-
-.button {
-  margin-top: 50px;
-  width: 269px;
-  height: 47px;
-  background: var(--accent);
-  box-shadow: 0 4px 25px #F6E22B;
-  border-radius: 44px;
-  color: var(--dark);
   border: 0;
-  font-weight: 700;
-  font-size: 23px;
+}
+
+.text__review {
+  margin-left: 14px;
+  margin-top: 10px;
   float: right;
-}
-
-#logo {
-  margin-top: 255px;
-  width: 122px;
-  height: 122px;
-  float: left;
-}
-
-.head p {
-  width: 210px;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 30px;
-  text-transform: uppercase;
-  float: left;
-  white-space: nowrap;
-  margin-top: 286px;
-  margin-left: 40px;
-}
-
-.head span {
-  font-weight: 900;
-  font-size: 24px;
-  line-height: 30px;
-  text-transform: uppercase;
-  display: block;
-}
-
-.info {
-  margin-top: 278px;
-  height: 50px;
-  width: 245px;
-  float: right;
-}
-
-.info img {
-  float: right;
-}
-
-.info p {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 16px;
-  text-align: right;
-  margin-right: 25px;
-  width: 210px;
-}
-
-#phone {
-  margin-top: 23px;
-  text-align: right;
-  float: right;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 16px;
-  color: #FFFFFF;
-  position: relative;
-}
+} */
