@@ -48,10 +48,10 @@ export class AppConstants {
   public static get statusMap(): Map<string, string> {
     let statusMap: Map<string, string> = new Map<string, string>();
     statusMap.set('ACTIVE', 'Открыта');
-    statusMap.set('ON_HOLD', 'Временно закрыта');
+    statusMap.set('ON_HOLD', 'Временно приостановлена');
     statusMap.set('CLOSED', 'Закрыта');
     statusMap.set('Открыта', 'ACTIVE');
-    statusMap.set('Временно закрыта', 'ON_HOLD');
+    statusMap.set('Временно приостановлена', 'ON_HOLD');
     statusMap.set('Закрыта', 'CLOSED');
     return statusMap;
   }

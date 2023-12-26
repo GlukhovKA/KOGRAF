@@ -22,7 +22,7 @@ export class ConferencesComponent implements OnInit {
   loggedUser!: LoginResponse;
   private baseUrl = AppConstants.baseURL;
 
-  statuses: string[] = ['Открыта', 'Временно закрыта', 'Закрыта'];
+  statuses: string[] = ['Открыта', 'Временно приостановлена', 'Закрыта'];
   statusMap: Map<string, string> = AppConstants.statusMap;
 
   httpOptions = {

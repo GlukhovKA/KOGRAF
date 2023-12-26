@@ -57,9 +57,16 @@ export class ConferenceComponent implements OnInit {
 
     this.route.params.pipe(map(p => p['id'])).subscribe(e => this.currentConferenceId = e);
 
-    this.http.get<Conference>(`${this.baseUrl}/api/v1/member/conference/${this.currentConferenceId}`, this.httpOptions).subscribe((data: Conference) => {
-      this.currentConference = data;
-    });
+    if (this.loggedUser.role == 'ADMIN') {
+      this.http.get<Conference>(`${this.baseUrl}/api/v1/admin/conference/${this.currentConferenceId}`, this.httpOptions).subscribe((data: Conference) => {
+        this.currentConference = data;
+      });
+    } else {
+      this.http.get<Conference>(`${this.baseUrl}/api/v1/member/conference/${this.currentConferenceId}`, this.httpOptions).subscribe((data: Conference) => {
+        this.currentConference = data;
+      });
+    }
+
     this.http.get<Section[]>(`${this.baseUrl}/api/v1/member/conference/${this.currentConferenceId}/sections`, this.httpOptions).subscribe((data: Section[]) => {
       this.sections = data;
     });
@@ -86,10 +93,10 @@ export class ConferenceComponent implements OnInit {
     });
   }
 
-  downloadJobs() {
+  /*downloadJobs() {
     this.http.get<Response>(`${this.baseUrl}/api/v1/files/downloadFiles/${this.currentConferenceId}`, this.httpOptions).subscribe((data: Response) => {
     });
-  }
+  }*/
 
   checkUsers() {
     this.router.navigate([`/conference/${this.currentConferenceId}/jobs`]);

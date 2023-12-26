@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder} from "@angular/forms";
 import {AppConstants} from "../../app.module";
 import {ActivatedRoute, Router} from "@angular/router";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {LoginResponse} from "../shared/model/login.response";
 import {Job} from "../shared/model/job";
 import {Conference} from "../shared/model/conference";
@@ -33,7 +33,6 @@ export class ConferenceJobsComponent implements OnInit {
   }
 
   httpOptionsFile = {
-    responseType: "blob",
     headers: new HttpHeaders(
       {
         'Content-Type': 'application/json',
@@ -68,9 +67,15 @@ export class ConferenceJobsComponent implements OnInit {
 
     this.route.params.pipe(map(p => p['id'])).subscribe(e => this.currentConferenceId = e);
 
-    this.http.get<Conference>(`${this.baseUrl}/api/v1/member/conference/${this.currentConferenceId}`, this.httpOptions).subscribe((data: Conference) => {
-      this.currentConference = data;
-    });
+    if (this.loggedUser.role == 'ADMIN') {
+      this.http.get<Conference>(`${this.baseUrl}/api/v1/admin/conference/${this.currentConferenceId}`, this.httpOptions).subscribe((data: Conference) => {
+        this.currentConference = data;
+      });
+    } else {
+      this.http.get<Conference>(`${this.baseUrl}/api/v1/member/conference/${this.currentConferenceId}`, this.httpOptions).subscribe((data: Conference) => {
+        this.currentConference = data;
+      });
+    }
 
     this.http.get<Job[]>(`${this.baseUrl}/api/v1/admin/jobs/${this.currentConferenceId}`, this.httpOptions).subscribe((data: Job[]) => {
       this.jobs = data;
@@ -82,12 +87,32 @@ export class ConferenceJobsComponent implements OnInit {
   }
 
   downloadOneJob(job: Job) {
-    this.http.get<File>(`${this.baseUrl}/api/v1/files/downloadFile/${job.fileName}`, this.httpOptions).subscribe((data: File) => {
-    });
+    this.http.get(`${this.baseUrl}/api/v1/files/downloadFile/${job.fileName}`, {observe: 'response', responseType: 'blob'})
+      .subscribe(response => {
+        let fileName = response.headers.get('content-disposition')?.split(';')[1].split('=')[1];
+        let blob: Blob = response.body as Blob;
+        let a = document.createElement('a');
+        if (fileName) {
+          a.download = fileName;
+          a.href = window.URL.createObjectURL(blob);
+          a.click();
+        }
+      });
   }
 
   downloadJobs() {
-    this.http.get<string>(`${this.baseUrl}/api/v1/files/downloadFiles/${this.currentConferenceId}`, this.httpOptions);
+    this.http.get(`${this.baseUrl}/api/v1/files/downloadFiles/${this.currentConferenceId}`, {
+      observe: 'response', responseType: 'blob'
+    }).subscribe(response => {
+      let fileName = response.headers.get('content-disposition')?.split(';')[1].split('=')[1];
+      let blob: Blob = response.body as Blob;
+      let a = document.createElement('a');
+      if (fileName) {
+        a.download = fileName;
+        a.href = window.URL.createObjectURL(blob);
+        a.click();
+      }
+    });
   }
 
   toPage(link: string) {

@@ -31,12 +31,11 @@
       <div class="row konf-information">
         <div class="row" style="margin-bottom: 20px;">
           <div class="col-12 conf-title text-black">{{this.currentConference.title}}</div>
-          <div class="col-4 conf-info-text text-black">Название: {{this.currentConference.organization}}</div>
+          <div class="col-4 conf-info-text text-black">Организация: {{this.currentConference.organization}}</div>
           <div class="col-4 conf-info-text text-black text-center">Дата начала: {{this.currentConference.startDate}}</div>
-          <div class="col-4 conf-info-text text-black text-end"><span *ngIf="isAdmin()">Количество участников:{{this.currentConference.status}}</span></div>
-          <div class="col-4 conf-info-text text-black ">Статус: {{this.currentConference.status}}</div>
-          <div class="col-4 conf-info-text text-black text-center">Дата завершения: {{this.currentConference.endDate}}
-          </div>
+          <div class="col-4 conf-info-text text-black text-end">Дата завершения: {{this.currentConference.endDate}}</div>
+          <div class="col-4 conf-info-text text-black ">Статус: {{ this.statusMap.get(this.currentConference.status) }}</div>
+          <div class="col-4 conf-info-text text-black text-center"><span *ngIf="isAdmin()">Количество участников: {{this.currentConference.countUsers}}</span></div>
           <div class="col-4 conf-info-text conf-btn-users-list text-black text-end"><a *ngIf="isAdmin()" (click)="checkUsers()">Перейти к списку участников</a></div>
         </div>
         <div class="row" style="margin-bottom: 20px;">
@@ -66,7 +65,7 @@
 
         <div class="row align-items-center" style="margin-bottom: 20px;">
           <div class="col-4 conf-info-text text-black">
-            
+
           </div>
           <div class="col-4 conf-info-text text-black text-center">
             <button type="button" class="btn btn-pref text-white" *ngIf="isAdmin()">Изменить</button>
@@ -77,7 +76,7 @@
           </div>
         </div>
 
-        
+
         <!--<div class="konf-description text-black">Описание: {{conf.description}}</div>-->
       </div>
     </div>
