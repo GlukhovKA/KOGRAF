@@ -5,6 +5,7 @@
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li (click)="toPage('conferences')"><a class="nav-link px-2 text-white head-text">Конференции</a></li>
         <li (click)="toPage('my-jobs')"><a class="nav-link px-2 text-white head-text">Мои статьи</a></li>
+        <li (click)="toPage('all-users')" *ngIf="isSuperAdmin()"><a class="nav-link px-2 text-white head-text">Пользователи</a></li>
         <li><a href="#" class="nav-link px-2 text-white head-text">Контакты</a></li>
       </ul>
     </div>
@@ -22,7 +23,7 @@
           <img src="../../../assets/pictures/home/vr.png" alt="">
           <h1>asd</h1>
           <p>Начните работу с Bootstrap, самой популярной в мире платформой для создания адаптивных, ориентированных на мобильные устройства сайтов, с jsDelivr и начальной страницей шаблона. Начните работу с Bootstrap, самой популярной в мире платформой для создания адаптивных, ориентированных на мобильные устройства сайтов, с jsDelivr и начальной страницей шаблона. Начните работу с Bootstrap, самой популярной в мире платформой для создания адаптивных, ориентированных на мобильные устройства сайтов, с jsDelivr и начальной страницей шаблона.</p>
-          
+
         </div>
       </div>
     </div>

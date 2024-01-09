@@ -5,6 +5,7 @@ import {ConferencesComponent} from "./system/all-conferences/conferences.compone
 import {ConferenceComponent} from "./system/one-conference/conference.component";
 import {JobsComponent} from "./system/my-jobs/jobs.component";
 import {ConferenceJobsComponent} from "./system/conference-jobs/conference-jobs.component";
+import {UsersComponent} from "./system/all-users/users.component";
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'my-jobs',
     component: JobsComponent
+  },
+  {
+    path: 'all-users',
+    component: UsersComponent
   },
   {
     path: '**',

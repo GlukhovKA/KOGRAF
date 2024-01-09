@@ -36,6 +36,14 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  isAdmin(): boolean {
+    return this.loggedUser.role == 'ADMIN' || this.loggedUser.role == 'SUPER_ADMIN';
+  }
+
+  isSuperAdmin(): boolean {
+    return this.loggedUser.role == 'SUPER_ADMIN';
+  }
+
   toPage(link: string) {
     this.router.navigate([link]);
   }

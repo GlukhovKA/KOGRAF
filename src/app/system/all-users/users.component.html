@@ -4,15 +4,16 @@
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li (click)="toPage('conferences')"><a class="nav-link px-2 text-white head-text">Конференции</a></li>
-        <li (click)="toPage('my-jobs')"><a class="nav-link px-2 head-text">Мои статьи</a></li>
-        <li (click)="toPage('all-users')" *ngIf="isSuperAdmin()"><a class="nav-link px-2 text-white head-text">Пользователи</a></li>
+        <li (click)="toPage('my-jobs')"><a class="nav-link px-2 text-white head-text">Мои статьи</a></li>
+        <li (click)="toPage('all-users')" *ngIf="isSuperAdmin()"><a class="nav-link px-2 head-text">Пользователи</a>
+        </li>
         <li><a href="#" class="nav-link px-2 text-white head-text">Контакты</a></li>
       </ul>
     </div>
   </div>
 </header>
 
-<section id="my-jobs">
+<section id="personal-account__client">
   <div class="container">
 
     <div class="main">
@@ -43,30 +44,77 @@
 
       </div>
 
-
-      <div class="row konf-list">
-        <div class="col-md-3 konf-item-outer" *ngFor="let job of this.jobs">
-
-          <div class="konf-item">
-            <div class="img-info-conf">
-              <img src="../../../assets/pictures/conf-images/demo-img.png" alt="">
-            </div>
-             <div class="general-info-conf">
-              <div class="konf-name">{{ job.title }}</div>
-              <div class="konf-organization text-black">Конференция: {{ job.conferenceId }}</div>
-            </div>
-            <div class="second-info-conf">
-              <div class="konf-description text-black">Описание: {{ job.description }}</div>
-              <div class="row justify-content-end">
-                <button type="button" class="btn btn-konf text-white px-1" >Открыть</button>
-              </div>
-            </div>
-
+      <div class="row" style="margin-bottom: 20px;">
+        <div class="row conf-info-section-item">
+          <div class="col-3 conf-info-section">
+            <div class="conf-section-title text-center text-white">Фамилия И.О.</div>
+          </div>
+          <div class="col-2 conf-info-section" style="padding-left: 5px;">
+            <div class="conf-section-title text-center text-white">Телефон</div>
+          </div>
+          <div class="col-2 conf-info-section" style="padding-left: 5px;">
+            <div class="conf-section-title text-center text-white">Почта</div>
+          </div>
+          <!--<div class="col-1 conf-info-section" style="padding-left: 5px;">
+            <div class="conf-section-title text-center text-white">ORC ID</div>
+          </div>
+          <div class="col-1 conf-info-section" style="padding-left: 5px;">
+            <div class="conf-section-title text-center text-white">RINC ID</div>
+          </div>-->
+          <div class="col-1 conf-info-section" style="padding-left: 5px;">
+            <div class="conf-section-title text-center text-white">Статус</div>
+          </div>
+          <div class="col-1 conf-info-section" style="padding-left: 5px;">
+            <div class="conf-section-title text-center text-white">Роль</div>
+          </div>
+          <div class="col-3 conf-info-section" style="padding-left: 5px;">
+            <div class="conf-section-title text-center text-white">Изменить</div>
           </div>
         </div>
 
+        <div class="row conf-info-section-item" *ngFor="let user of this.users">
+          <div class="col-3 conf-info-section">
+            <div class="users-list-text text-center text-black">{{ user.fullName }}</div>
+          </div>
+          <div class="col-2 conf-info-section" style="padding-left: 5px;">
+            <div class="users-list-text text-center text-black">{{ user.phone }}</div>
+          </div>
+          <div class="col-2 conf-info-section" style="padding-left: 5px;">
+            <div class="users-list-text text-center text-black">{{ user.email }}</div>
+          </div>
+          <!--<div class="col-1 conf-info-section" style="padding-left: 5px;">
+            <div class="users-list-text text-center text-black">{{ user.orcId }}</div>
+          </div>
+          <div class="col-1 conf-info-section" style="padding-left: 5px;">
+            <div class="users-list-text text-center text-black">{{ user.rincId }}</div>
+          </div>-->
+          <div class="col-1 conf-info-section" style="padding-left: 5px;">
+            <div class="users-list-text text-center text-black">{{ this.userStatusMap.get(user.status) }}</div>
+          </div>
+          <div class="col-1 conf-info-section" style="padding-left: 5px;">
+            <div class="users-list-text text-center text-black">{{ this.userRoleMap.get(user.role) }}</div>
+          </div>
+          <div class="d-inline-flex align-items-center justify-content-end col-3">
+            <div class="users-list-text text-center text-black" *ngIf="user.role == 'MEMBER'" (click)="changeRole(user, 'ADMIN')">
+              <a>Назначить администратором</a>
+            </div>
+            <div class="users-list-text text-center text-black" *ngIf="user.role == 'ADMIN'" (click)="changeRole(user, 'MEMBER')">
+              <a>Назначить участником</a>
+            </div>
+            <div class="users-list-text text-center text-black" *ngIf="user.status == 'ACTIVE'" (click)="changeStatus(user, 'BANNED')">
+              <a>Заблокировать</a>
+            </div>
+            <div class="users-list-text text-center text-black" *ngIf="user.status == 'BANNED'" (click)="changeStatus(user, 'ACTIVE')">
+              <a>Разблокировать</a>
+            </div>
+          </div>
 
+
+
+        </div>
       </div>
+
+
     </div>
   </div>
 </section>

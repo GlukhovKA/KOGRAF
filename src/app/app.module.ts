@@ -14,6 +14,7 @@ import {CommonModule} from "@angular/common";
 import {IConfig, NgxMaskModule} from "ngx-mask";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {ConferenceJobsComponent} from "./system/conference-jobs/conference-jobs.component";
+import {UsersComponent} from "./system/all-users/users.component";
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {ConferenceJobsComponent} from "./system/conference-jobs/conference-jobs.
     ConferencesComponent,
     ConferenceComponent,
     ConferenceJobsComponent,
+    UsersComponent,
     HeaderComponent,
     JobsComponent,
   ],
@@ -45,7 +47,7 @@ export class AppConstants {
 
   public static get baseURL(): string { return "http://localhost:8080"; }
 
-  public static get statusMap(): Map<string, string> {
+  public static get conferenceStatusMap(): Map<string, string> {
     let statusMap: Map<string, string> = new Map<string, string>();
     statusMap.set('ACTIVE', 'Открыта');
     statusMap.set('ON_HOLD', 'Временно приостановлена');
@@ -53,6 +55,28 @@ export class AppConstants {
     statusMap.set('Открыта', 'ACTIVE');
     statusMap.set('Временно приостановлена', 'ON_HOLD');
     statusMap.set('Закрыта', 'CLOSED');
+    return statusMap;
+  }
+
+  public static get userStatusMap(): Map<string, string> {
+    let statusMap: Map<string, string> = new Map<string, string>();
+    statusMap.set('ACTIVE', 'Активен');
+    statusMap.set('BANNED', 'Заблокирован');
+    statusMap.set('CONFIRMATION', 'Подтверждение');
+    statusMap.set('Активен', 'ACTIVE');
+    statusMap.set('Заблокирован', 'BANNED');
+    statusMap.set('Подтверждение', 'CONFIRMATION');
+    return statusMap;
+  }
+
+  public static get userRoleMap(): Map<string, string> {
+    let statusMap: Map<string, string> = new Map<string, string>();
+    statusMap.set('MEMBER', 'Участник');
+    statusMap.set('ADMIN', 'Админ конф.');
+    statusMap.set('SUPER_ADMIN', 'Супер-админ');
+    statusMap.set('Участник', 'MEMBER');
+    statusMap.set('Админ конф.', 'ADMIN');
+    statusMap.set('Супер-админ', 'SUPER_ADMIN');
     return statusMap;
   }
 }

@@ -23,7 +23,7 @@ export class ConferencesComponent implements OnInit {
   private baseUrl = AppConstants.baseURL;
 
   statuses: string[] = ['Открыта', 'Временно приостановлена', 'Закрыта'];
-  statusMap: Map<string, string> = AppConstants.statusMap;
+  statusMap: Map<string, string> = AppConstants.conferenceStatusMap;
 
   httpOptions = {
     headers: new HttpHeaders(
@@ -65,7 +65,7 @@ export class ConferencesComponent implements OnInit {
       sessionStorage.setItem("user_info", JSON.stringify(data));
     })
 
-    if (this.loggedUser.role == 'ADMIN') {
+    if (this.isAdmin()) {
       this.http.get<Conference[]>(`${this.baseUrl}/api/v1/admin/conferences`, this.httpOptions).subscribe((data: Conference[]) => {
         this.conferences = data;
       });
@@ -106,7 +106,11 @@ export class ConferencesComponent implements OnInit {
   }
 
   isAdmin(): boolean {
-    return this.loggedUser.role == 'ADMIN';
+    return this.loggedUser.role == 'ADMIN' || this.loggedUser.role == 'SUPER_ADMIN';
+  }
+
+  isSuperAdmin(): boolean {
+    return this.loggedUser.role == 'SUPER_ADMIN';
   }
 
   openConf(id: bigint): void {

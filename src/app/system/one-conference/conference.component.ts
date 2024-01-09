@@ -7,6 +7,7 @@ import {AppConstants} from "../../app.module";
 import {Section} from "../shared/model/section";
 import {map} from "rxjs";
 import {Conference} from "../shared/model/conference";
+import {User} from "../shared/model/user";
 
 @Component({
   selector: 'app-one-conference',
@@ -18,12 +19,14 @@ export class ConferenceComponent implements OnInit {
   sections: Section[] = []
 
   currentConference!: Conference;
-  currentConferenceId!: string
+  currentConferenceId!: string;
+
+  admins!: User[];
 
   formAddJob!: FormGroup;
   loggedUser!: LoginResponse;
   private baseUrl = AppConstants.baseURL;
-  statusMap: Map<string, string> = AppConstants.statusMap;
+  statusMap: Map<string, string> = AppConstants.conferenceStatusMap;
 
   httpOptions = {
     headers: new HttpHeaders(
@@ -57,13 +60,19 @@ export class ConferenceComponent implements OnInit {
 
     this.route.params.pipe(map(p => p['id'])).subscribe(e => this.currentConferenceId = e);
 
-    if (this.loggedUser.role == 'ADMIN') {
+    if (this.isAdminAbsolute()) {
       this.http.get<Conference>(`${this.baseUrl}/api/v1/admin/conference/${this.currentConferenceId}`, this.httpOptions).subscribe((data: Conference) => {
         this.currentConference = data;
       });
     } else {
       this.http.get<Conference>(`${this.baseUrl}/api/v1/member/conference/${this.currentConferenceId}`, this.httpOptions).subscribe((data: Conference) => {
         this.currentConference = data;
+      });
+    }
+
+    if (this.isSuperAdmin()) {
+      this.http.get<User[]>(`${this.baseUrl}/api/v1/admin/user/getAdmins`, this.httpOptions).subscribe((data: User[]) => {
+        this.admins = data;
       });
     }
 
@@ -80,8 +89,19 @@ export class ConferenceComponent implements OnInit {
     })
   }
 
-  isAdmin(): boolean {
-    return this.loggedUser.role == 'ADMIN';
+  isAdminAbsolute(): boolean {
+    return this.loggedUser.role == 'ADMIN' || this.loggedUser.role == 'SUPER_ADMIN';
+  }
+
+  isAdminConference(): boolean {
+    let user_info: string | null = sessionStorage.getItem("user_info");
+    let currentUser: User = user_info != null ? JSON.parse(user_info) : new User();
+
+    return (this.loggedUser.role == 'ADMIN' && currentUser.id == this.currentConference.adminId) || this.loggedUser.role == 'SUPER_ADMIN';
+  }
+
+  isSuperAdmin(): boolean {
+    return this.loggedUser.role == 'SUPER_ADMIN';
   }
 
   updateConference() {
