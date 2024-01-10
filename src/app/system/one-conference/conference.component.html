@@ -25,11 +25,11 @@
             Конференции / {{this.currentConference.title}}
           </div>
         </div>
-        <div class="d-inline-flex align-items-center col-2" *ngIf="isSuperAdmin()">
+        <div class="d-inline-flex align-items-center col-4 text-black" *ngIf="isSuperAdmin()" style="height: 17px;">
           Администратор
-          <div class="conf-name-adress text-black">
+          <div class="conf-name-adress text-black" style="width: 100%;">
             <div class="form-floating mb-3">
-              <select class="form-select rounded-4" style="height: 58px;"
+              <select class="form-select rounded-1" style="height: 47px; padding: 15px; margin-top: 15px;"
                       formControlName="status">
 
                 <option [ngValue]="undefined" style="font-size: 16px;">Выберите</option>

@@ -72,10 +72,10 @@ export class AppConstants {
   public static get userRoleMap(): Map<string, string> {
     let statusMap: Map<string, string> = new Map<string, string>();
     statusMap.set('MEMBER', 'Участник');
-    statusMap.set('ADMIN', 'Админ конф.');
+    statusMap.set('ADMIN', 'Админ');
     statusMap.set('SUPER_ADMIN', 'Супер-админ');
     statusMap.set('Участник', 'MEMBER');
-    statusMap.set('Админ конф.', 'ADMIN');
+    statusMap.set('Админ', 'ADMIN');
     statusMap.set('Супер-админ', 'SUPER_ADMIN');
     return statusMap;
   }

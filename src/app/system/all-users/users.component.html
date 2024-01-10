@@ -20,7 +20,7 @@
       <div class="row d-flex align-items-center konf-pref">
         <div class="d-inline-flex align-items-center col-10">
           <div class="pref-search-text text-black">
-            Поиск конференции
+            Поиск пользователя
           </div>
           <input class="input-search" type="text">
           <a href="#" class="pref-options">
@@ -43,8 +43,10 @@
         </div>
 
       </div>
+      
 
-      <div class="row" style="margin-bottom: 20px;">
+      <div class="row konf-information" style="margin-bottom: 20px;">
+        
         <div class="row conf-info-section-item">
           <div class="col-3 conf-info-section">
             <div class="conf-section-title text-center text-white">Фамилия И.О.</div>
@@ -55,12 +57,6 @@
           <div class="col-2 conf-info-section" style="padding-left: 5px;">
             <div class="conf-section-title text-center text-white">Почта</div>
           </div>
-          <!--<div class="col-1 conf-info-section" style="padding-left: 5px;">
-            <div class="conf-section-title text-center text-white">ORC ID</div>
-          </div>
-          <div class="col-1 conf-info-section" style="padding-left: 5px;">
-            <div class="conf-section-title text-center text-white">RINC ID</div>
-          </div>-->
           <div class="col-1 conf-info-section" style="padding-left: 5px;">
             <div class="conf-section-title text-center text-white">Статус</div>
           </div>
@@ -69,6 +65,12 @@
           </div>
           <div class="col-3 conf-info-section" style="padding-left: 5px;">
             <div class="conf-section-title text-center text-white">Изменить</div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-center" *ngIf="this.users.length == 0">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
           </div>
         </div>
 
@@ -94,19 +96,25 @@
           <div class="col-1 conf-info-section" style="padding-left: 5px;">
             <div class="users-list-text text-center text-black">{{ this.userRoleMap.get(user.role) }}</div>
           </div>
-          <div class="d-inline-flex align-items-center justify-content-end col-3">
-            <div class="users-list-text text-center text-black" *ngIf="user.role == 'MEMBER'" (click)="changeRole(user, 'ADMIN')">
-              <a>Назначить администратором</a>
-            </div>
-            <div class="users-list-text text-center text-black" *ngIf="user.role == 'ADMIN'" (click)="changeRole(user, 'MEMBER')">
-              <a>Назначить участником</a>
-            </div>
-            <div class="users-list-text text-center text-black" *ngIf="user.status == 'ACTIVE'" (click)="changeStatus(user, 'BANNED')">
-              <a>Заблокировать</a>
-            </div>
-            <div class="users-list-text text-center text-black" *ngIf="user.status == 'BANNED'" (click)="changeStatus(user, 'ACTIVE')">
-              <a>Разблокировать</a>
-            </div>
+          <div class="col-3 conf-info-section" style="padding-left:5px;">
+            
+              <div class="col-12" style="padding: 0px;">
+                <div class="users-list-text-btn text-center text-black" *ngIf="user.role == 'MEMBER'" (click)="changeRole(user, 'ADMIN')">
+                  <a>Назначить администратором</a>
+                </div>
+                <div class="users-list-text-btn text-center text-black" *ngIf="user.role == 'ADMIN'" (click)="changeRole(user, 'MEMBER')">
+                  <a>Назначить участником</a>
+                </div>
+              </div>
+              <div class="col-12" style="padding: 0px;">
+                <div class="users-list-text-btn text-center text-black" *ngIf="user.status == 'ACTIVE'" (click)="changeStatus(user, 'BANNED')">
+                  <a>Заблокировать</a>
+                </div>
+                <div class="users-list-text-btn text-center text-black" *ngIf="user.status == 'BANNED'" (click)="changeStatus(user, 'ACTIVE')">
+                  <a>Разблокировать</a>
+                </div>
+              </div>
+            
           </div>
 
 
