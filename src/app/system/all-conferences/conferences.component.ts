@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Conference} from "../shared/model/conference";
 import {User} from "../shared/model/user";
@@ -6,13 +6,14 @@ import {AppConstants} from "../../app.module";
 import {Router} from "@angular/router";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {LoginResponse} from "../shared/model/login.response";
+import {firstValueFrom} from "rxjs";
 
 @Component({
   selector: 'app-conferences',
   templateUrl: './conferences.component.html',
   styleUrls: ['./conferences.component.css']
 })
-export class ConferencesComponent implements OnInit {
+export class ConferencesComponent implements OnInit, AfterViewInit {
 
   conferences: Conference[] = [];
   // static currentConference: Conference;
@@ -54,25 +55,13 @@ export class ConferencesComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit() {
+    this.loadAllData()
+  }
+
   ngOnInit(): void {
     if (!this.checkLogin()) {
       this.router.navigate(['']);
-    }
-
-    //this.httpOptions.headers.set('Authorization', this.loggedUser != null ? this.loggedUser.token : '')
-    this.http.get<User>(`${this.baseUrl}/api/v1/member/getUser?email=${this.loggedUser.email}`, this.httpOptions).subscribe((data: User) => {
-      this.currentUser = data;
-      sessionStorage.setItem("user_info", JSON.stringify(data));
-    })
-
-    if (this.isAdmin()) {
-      this.http.get<Conference[]>(`${this.baseUrl}/api/v1/admin/conferences`, this.httpOptions).subscribe((data: Conference[]) => {
-        this.conferences = data;
-      });
-    } else {
-      this.http.get<Conference[]>(`${this.baseUrl}/api/v1/member/conferences`, this.httpOptions).subscribe((data: Conference[]) => {
-        this.conferences = data;
-      });
     }
 
     this.formAddConf = this.formBuilder.group({
@@ -83,6 +72,28 @@ export class ConferencesComponent implements OnInit {
       date_end: new FormControl('', [Validators.required]),
       status: new FormControl('', [Validators.required]),
     });
+
+    this.loadAllData()
+  }
+
+  loadAllData() {
+    //this.httpOptions.headers.set('Authorization', this.loggedUser != null ? this.loggedUser.token : '')
+    this.getUserInfo(this.loggedUser.email).then((data) => {
+      this.currentUser = data;
+      sessionStorage.setItem("user_info", JSON.stringify(data));
+    });
+
+    this.getConferences().then((data) => {
+      this.conferences = data;
+    });
+  }
+
+  async getUserInfo(email: string): Promise<User> {
+    return await firstValueFrom(this.http.get<User>(`${this.baseUrl}/api/v1/member/getUser?email=${email}`, this.httpOptions));
+  }
+
+  async getConferences(): Promise<Conference[]> {
+    return await firstValueFrom(this.http.get<Conference[]>(`${this.baseUrl}/api/v1/member/conferences`, this.httpOptions));
   }
 
   addConf(): void {

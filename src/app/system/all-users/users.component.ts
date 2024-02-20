@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Conference} from "../shared/model/conference";
 import {User} from "../shared/model/user";
@@ -7,13 +7,14 @@ import {Router} from "@angular/router";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {LoginResponse} from "../shared/model/login.response";
 import {Job} from "../shared/model/job";
+import {firstValueFrom} from "rxjs";
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, AfterViewInit {
 
   users: User[] = [];
 
@@ -54,14 +55,26 @@ export class UsersComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit() {
+    this.loadAllData()
+  }
+
   ngOnInit(): void {
     if (!this.checkLogin() || !this.isSuperAdmin()) {
       this.router.navigate(['']);
     }
 
-    this.http.get<User[]>(`${this.baseUrl}/api/v1/admin/getAllUsers`, this.httpOptions).subscribe((data: User[]) => {
-      this.users = data;
+    this.loadAllData()
+  }
+
+  loadAllData() {
+    this.getUsers().then((data) => {
+      this.users = data
     });
+  }
+
+  async getUsers(): Promise<User[]> {
+    return await firstValueFrom(this.http.get<User[]>(`${this.baseUrl}/api/v1/admin/getAllUsers`, this.httpOptions));
   }
 
   updateStatus(event: Event): void {

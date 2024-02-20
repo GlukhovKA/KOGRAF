@@ -6,6 +6,7 @@ import {ConferenceComponent} from "./system/one-conference/conference.component"
 import {JobsComponent} from "./system/my-jobs/jobs.component";
 import {ConferenceJobsComponent} from "./system/conference-jobs/conference-jobs.component";
 import {UsersComponent} from "./system/all-users/users.component";
+import {ConferenceCreateComponent} from "./system/one-conference-create/conference-create.component";
 
 const routes: Routes = [
   {
@@ -14,7 +15,15 @@ const routes: Routes = [
   },
   {
     path: 'conferences',
-    component: ConferencesComponent
+    component: ConferencesComponent,
+  },
+  {
+    path: 'conferences/create',
+    component: ConferenceCreateComponent
+  },
+  {
+    path: 'conference/:id/edit',
+    component: ConferenceCreateComponent
   },
   {
     path: 'conference/:id/jobs',

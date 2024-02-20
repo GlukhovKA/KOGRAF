@@ -25,18 +25,8 @@
             Конференции / {{this.currentConference.title}}
           </div>
         </div>
-        <div class="d-inline-flex align-items-center col-4 text-black" *ngIf="isSuperAdmin()" style="height: 17px;">
-          Администратор
-          <div class="conf-name-adress text-black" style="width: 100%;">
-            <div class="form-floating mb-3">
-              <select class="form-select rounded-1" style="height: 47px; padding: 15px; margin-top: 15px;"
-                      formControlName="status">
-
-                <option [ngValue]="undefined" style="font-size: 16px;">Выберите</option>
-                <option *ngFor="let user of admins">{{ user.fullName }}</option>
-              </select>
-            </div>
-          </div>
+        <div class="d-inline-flex align-items-center col-4 text-black" *ngIf="isAdminAbsolute()" style="height: 17px;">
+          {{this.currentConferenceAdmin.fullName != null ? "Администратор: "+ this.currentConferenceAdmin.fullName : ''}}
         </div>
       </div>
 
@@ -49,7 +39,7 @@
           <div class="col-4 conf-info-text text-black text-center">Дата начала: {{this.currentConference.startDate}}</div>
           <div class="col-4 conf-info-text text-black text-end">Дата завершения: {{this.currentConference.endDate}}</div>
           <div class="col-4 conf-info-text text-black ">Статус: {{ this.statusMap.get(this.currentConference.status) }}</div>
-          <div class="col-4 conf-info-text text-black text-center"><span *ngIf="isAdminConference()">Количество участников: {{this.currentConference.countUsers}}</span></div>
+          <div class="col-4 conf-info-text text-black text-center"><span *ngIf="isAdminConference()">Количество участников: {{this.countUsers}}</span></div>
           <div class="col-4 conf-info-text conf-btn-users-list text-black text-end"><a *ngIf="isAdminConference()" (click)="checkUsers()">Перейти к списку участников</a></div>
         </div>
         <div class="row" style="margin-bottom: 20px;">
@@ -77,13 +67,25 @@
           </div>
         </div>
 
+        <div *ngIf="this.addingJob">
+          <!-- Загрузка через проводник и перетаскиванием -->
+          <input type="file" oi-file="options">
+
+          <!-- Загрузка перетаскиванием на область -->
+<!--          <ul oi-file="options">-->
+<!--            <li ng-repeat="item in items">-->
+<!--              <img ng-src="{{item.thumb}}">-->
+<!--            </li>-->
+<!--          </ul>-->
+        </div>
+
         <div class="row align-items-center" style="margin-bottom: 20px;">
           <div class="col-4 conf-info-text text-black">
 
           </div>
           <div class="col-4 conf-info-text text-black text-center">
-            <button type="button" class="btn btn-pref text-white" *ngIf="isAdminConference()">Изменить</button>
-            <button type="button" class="btn btn-pref text-white" *ngIf="!isAdminConference()">Добавить</button>
+            <button type="button" class="btn btn-pref text-white" (click)="editConference()" *ngIf="isAdminConference()">Изменить</button>
+            <button type="button" class="btn btn-pref text-white" (click)="addJob()" *ngIf="!isAdminConference() && this.currentConference.status == 'ACTIVE'">Добавить</button>
           </div>
           <div class="col-4 conf-info-text text-black text-end">
 

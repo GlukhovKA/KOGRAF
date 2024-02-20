@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {AppComponent} from './app.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {HomeComponent} from "./system/home/home.component";
 import {NotFoundComponent} from "./system/not-found/not-found.component";
@@ -8,13 +8,14 @@ import {ConferencesComponent} from "./system/all-conferences/conferences.compone
 import {ConferenceComponent} from "./system/one-conference/conference.component";
 import {HeaderComponent} from "./system/shared/header/header.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { JobsComponent } from './system/my-jobs/jobs.component';
+import {JobsComponent} from './system/my-jobs/jobs.component';
 import {HttpClientModule} from "@angular/common/http";
 import {CommonModule} from "@angular/common";
-import {IConfig, NgxMaskModule} from "ngx-mask";
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgxMaskModule} from "ngx-mask";
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ConferenceJobsComponent} from "./system/conference-jobs/conference-jobs.component";
 import {UsersComponent} from "./system/all-users/users.component";
+import {ConferenceCreateComponent} from "./system/one-conference-create/conference-create.component";
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {UsersComponent} from "./system/all-users/users.component";
     NotFoundComponent,
     ConferencesComponent,
     ConferenceComponent,
+    ConferenceCreateComponent,
     ConferenceJobsComponent,
     UsersComponent,
     HeaderComponent,
@@ -41,11 +43,14 @@ import {UsersComponent} from "./system/all-users/users.component";
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
 
 export class AppConstants {
 
-  public static get baseURL(): string { return "http://localhost:8080"; }
+  public static get baseURL(): string {
+    return "http://localhost:8080";
+  }
 
   public static get conferenceStatusMap(): Map<string, string> {
     let statusMap: Map<string, string> = new Map<string, string>();

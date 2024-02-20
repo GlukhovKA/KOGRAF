@@ -8,9 +8,7 @@ export class Conference {
   private _description!: string;
   private _sections!: Section[];
   private _status!: string;
-  private _userIds!: bigint[];
   private _adminId!: bigint;
-  private _countUsers!: number;
   private _startDate!: string;
   private _endDate!: string;
 
@@ -65,28 +63,12 @@ export class Conference {
     this._status = value;
   }
 
-  get userIds(): bigint[] {
-    return this._userIds;
-  }
-
-  set userIds(value: bigint[]) {
-    this._userIds = value;
-  }
-
   get adminId(): bigint {
     return this._adminId;
   }
 
   set adminId(value: bigint) {
     this._adminId = value;
-  }
-
-  get countUsers(): number {
-    return this._countUsers;
-  }
-
-  set countUsers(value: number) {
-    this._countUsers = value;
   }
 
   get startDate(): string {
