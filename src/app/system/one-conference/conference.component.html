@@ -69,7 +69,9 @@
 
         <div *ngIf="this.addingJob">
           <!-- Загрузка через проводник и перетаскиванием -->
-          <input type="file" oi-file="options">
+          <form >
+            <input type="file" accept=".docx,.doc,.pdf" multiple (change)="onSelectedFiles($event)">
+          </form>
 
           <!-- Загрузка перетаскиванием на область -->
 <!--          <ul oi-file="options">-->
@@ -85,7 +87,8 @@
           </div>
           <div class="col-4 conf-info-text text-black text-center">
             <button type="button" class="btn btn-pref text-white" (click)="editConference()" *ngIf="isAdminConference()">Изменить</button>
-            <button type="button" class="btn btn-pref text-white" (click)="addJob()" *ngIf="!isAdminConference() && this.currentConference.status == 'ACTIVE'">Добавить</button>
+            <button type="button" class="btn btn-pref text-white" (click)="addJob()" *ngIf="!isAdminConference() && this.currentConference.status == 'ACTIVE' && !this.addingJob">Добавить</button>
+            <button type="button" class="btn btn-pref text-white" (click)="saveFiles()" *ngIf="!isAdminConference() && this.currentConference.status == 'ACTIVE' && this.addingJob">Сохранить</button>
           </div>
           <div class="col-4 conf-info-text text-black text-end">
 

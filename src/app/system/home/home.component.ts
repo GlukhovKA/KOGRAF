@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {LoginResponse} from "../shared/model/login.response";
 
@@ -13,9 +13,7 @@ export class HomeComponent implements OnInit {
   form!: FormGroup;
   loggedUser!: LoginResponse;
 
-  constructor(private formBuilder: FormBuilder,
-              private router: Router
-  ) {
+  constructor(private router: Router) {
   }
 
   ngOnInit() {

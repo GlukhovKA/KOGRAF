@@ -1,13 +1,9 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Conference} from "../shared/model/conference";
 import {User} from "../shared/model/user";
 import {AppConstants} from "../../app.module";
 import {Router} from "@angular/router";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {LoginResponse} from "../shared/model/login.response";
-import {Job} from "../shared/model/job";
-import {firstValueFrom} from "rxjs";
+import {HttpService} from "../shared/services/http.service";
 
 @Component({
   selector: 'app-users',
@@ -19,25 +15,12 @@ export class UsersComponent implements OnInit, AfterViewInit {
   users: User[] = [];
 
   loggedUser!: LoginResponse;
-  private baseUrl = AppConstants.baseURL;
 
-  userStatuses: string[] = ['Активен', 'Заблокирован'];
-  userRoles: string[] = ['Участник', 'Админ конференции'];
   userStatusMap: Map<string, string> = AppConstants.userStatusMap;
   userRoleMap: Map<string, string> = AppConstants.userRoleMap;
 
-  httpOptions = {
-    headers: new HttpHeaders(
-      {
-        'Content-Type': 'application/json',
-      }
-    )
-  }
-
   constructor(private router: Router,
-              private formBuilder: FormBuilder,
-              private http: HttpClient) {
-
+              private httpService: HttpService) {
   }
 
 
@@ -68,23 +51,15 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   loadAllData() {
-    this.getUsers().then((data) => {
+    this.httpService.getUsers().then((data) => {
       this.users = data
     });
   }
 
-  async getUsers(): Promise<User[]> {
-    return await firstValueFrom(this.http.get<User[]>(`${this.baseUrl}/api/v1/admin/getAllUsers`, this.httpOptions));
-  }
-
-  updateStatus(event: Event): void {
-
-  }
-
   changeRole(user: User, role: string) {
-    this.http.post<boolean>(`${this.baseUrl}/api/v1/admin/user/appointrole?userId=${user.id}&role=${role}`, this.httpOptions).subscribe((data: boolean) => {
+    this.httpService.changeUserRole(String(user.id), role).then((data) => {
       if (data) {
-        this.users.forEach(e=> {
+        this.users.forEach(e => {
           if (e.id == user.id) {
             user.role = role;
           }
@@ -94,9 +69,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   changeStatus(user: User, status: string) {
-    this.http.post<boolean>(`${this.baseUrl}/api/v1/admin/user/changestatus?userId=${user.id}&status=${status}`, this.httpOptions).subscribe((data: boolean) => {
+    this.httpService.changeUserStatus(String(user.id), status).then((data) => {
       if (data) {
-        this.users.forEach(e=> {
+        this.users.forEach(e => {
           if (e.id == user.id) {
             user.status = status;
           }

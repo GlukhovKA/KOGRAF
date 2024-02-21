@@ -1,13 +1,13 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {LoginResponse} from "../shared/model/login.response";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AppConstants} from "../../app.module";
 import {Section} from "../shared/model/section";
-import {firstValueFrom, map} from "rxjs";
+import {map} from "rxjs";
 import {Conference} from "../shared/model/conference";
 import {User} from "../shared/model/user";
+import {HttpService} from "../shared/services/http.service";
 
 @Component({
   selector: 'app-one-conference',
@@ -26,25 +26,14 @@ export class ConferenceComponent implements OnInit, AfterViewInit {
 
   formAddJob!: FormGroup;
   loggedUser!: LoginResponse;
-  private baseUrl = AppConstants.baseURL;
   statusMap: Map<string, string> = AppConstants.conferenceStatusMap;
 
   addingJob: boolean = false;
 
-  httpOptions = {
-    headers: new HttpHeaders(
-      {
-        'Content-Type': 'application/json',
-        // @ts-ignore
-        //'Authorization': sessionStorage.getItem('user') != null ? JSON.parse(sessionStorage.getItem('user')).token : ''
-      }
-    )
-  }
-
   constructor(private formBuilder: FormBuilder,
               private router: Router,
-              private http: HttpClient,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private httpService: HttpService) {
   }
 
   checkLogin() {
@@ -69,45 +58,31 @@ export class ConferenceComponent implements OnInit, AfterViewInit {
   }
 
   loadAllData() {
-    this.route.params.pipe(map(p => p['id'])).subscribe(e => this.currentConferenceId = e);
+    this.route.params.pipe(map(p => p['id'])).subscribe(e => {
+      this.currentConferenceId = e;
 
-    this.getConference(this.currentConferenceId).then((data) => {
-      this.currentConference = data;
-      if (this.isSuperAdmin()) {
-        this.getAdmins().then((data) => {
-          this.admins = data;
-          let optionalAdmin = this.admins.find((e) => this.currentConference.adminId == e.id)
-          if (optionalAdmin != undefined) {
-            this.currentConferenceAdmin = optionalAdmin
-          }
+      this.httpService.getConference(this.currentConferenceId).then((data) => {
+        this.currentConference = data;
+        if (this.isSuperAdmin()) {
+          this.httpService.getAdmins().then((data) => {
+            this.admins = data;
+            let optionalAdmin = this.admins.find((e) => this.currentConference.adminId == e.id)
+            if (optionalAdmin != undefined) {
+              this.currentConferenceAdmin = optionalAdmin
+            }
+          })
+        }
+
+        if (this.isAdminAbsolute()) {
+          this.httpService.getConferenceUsers(this.currentConferenceId).then((data) => {
+            this.countUsers = data
+          });
+        }
+        this.httpService.getSections(this.currentConferenceId).then((data) => {
+          this.sections = data
         })
-      }
-
-      if (this.isAdminAbsolute()) {
-        this.getConferenceUsers(this.currentConferenceId).then((data) => {
-          this.countUsers = data
-        });
-      }
-      this.getSections(this.currentConferenceId).then((data) => {
-        this.sections = data
-      })
+      });
     });
-  }
-
-  async getAdmins(): Promise<User[]> {
-    return await firstValueFrom(this.http.get<User[]>(`${this.baseUrl}/api/v1/admin/user/getAdmins`, this.httpOptions));
-  }
-
-  async getConferenceUsers(id: string): Promise<number> {
-    return await firstValueFrom(this.http.get<number>(`${this.baseUrl}/api/v1/admin/conference/${id}/users`, this.httpOptions));
-  }
-
-  async getConference(id: string): Promise<Conference> {
-    return await firstValueFrom(this.http.get<Conference>(`${this.baseUrl}/api/v1/member/conference/${id}`, this.httpOptions));
-  }
-
-  async getSections(id: string): Promise<Section[]> {
-    return await firstValueFrom(this.http.get<Section[]>(`${this.baseUrl}/api/v1/member/conference/${id}/sections`, this.httpOptions));
   }
 
   isAdminAbsolute(): boolean {
@@ -137,6 +112,38 @@ export class ConferenceComponent implements OnInit, AfterViewInit {
 
   addJob() {
     this.addingJob = true;
+  }
+
+  files: File[] = [];
+
+  onSelectedFiles(event: Event) {
+    this.files = []
+    let files = (event.target as HTMLInputElement).files;
+    const formData: FormData = new FormData();
+    // this.files.forEach((file) => {
+    //   formData.append("file", file);
+    // })
+
+    if (files != null) {
+      for (let i = 0; i < files.length; i++) {
+        let file = files.item(i);
+        if (file != null) {
+          this.files.push(file);
+        }
+      }
+    }
+
+    console.log(this.files.reduce((prev, cur, ind) => `${prev} ${cur.name}`, ''))
+  }
+
+  saveFiles() {
+    const formData: FormData = new FormData();
+    this.files.forEach((file) => {
+      formData.append("files", file);
+    })
+
+    this.httpService.uploadFiles(formData);
+    this.addingJob = false;
   }
 
   toPage(link: string) {

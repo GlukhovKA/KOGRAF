@@ -1,13 +1,13 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {FormBuilder} from "@angular/forms";
 import {AppConstants} from "../../app.module";
 import {ActivatedRoute, Router} from "@angular/router";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpResponse} from "@angular/common/http";
 import {LoginResponse} from "../shared/model/login.response";
 import {Job} from "../shared/model/job";
 import {Conference} from "../shared/model/conference";
-import {firstValueFrom, map} from "rxjs";
+import {map} from "rxjs";
 import {User} from "../shared/model/user";
+import {HttpService} from "../shared/services/http.service";
 
 @Component({
   selector: 'app-conference-jobs',
@@ -23,29 +23,11 @@ export class ConferenceJobsComponent implements OnInit, AfterViewInit {
   countUsers: number = 0;
 
   loggedUser!: LoginResponse;
-  private baseUrl = AppConstants.baseURL;
   statusMap: Map<string, string> = AppConstants.conferenceStatusMap;
 
-  httpOptions = {
-    headers: new HttpHeaders(
-      {
-        'Content-Type': 'application/json',
-      }
-    )
-  }
-
-  httpOptionsFile = {
-    headers: new HttpHeaders(
-      {
-        'Content-Type': 'application/json',
-      }
-    )
-  }
-
-  constructor(private formBuilder: FormBuilder,
-              private router: Router,
-              private http: HttpClient,
-              private route: ActivatedRoute) {
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private httpService: HttpService) {
   }
 
   checkLogin(): boolean {
@@ -75,35 +57,26 @@ export class ConferenceJobsComponent implements OnInit, AfterViewInit {
   }
 
   loadAllData() {
-    this.route.params.pipe(map(p => p['id'])).subscribe(e => this.currentConferenceId = e);
+    this.route.params.pipe(map(p => p['id'])).subscribe(e => {
+      this.currentConferenceId = e;
 
-    this.getConference(this.currentConferenceId).then((data) => {
-      this.currentConference = data;
-      if (!this.isAdminConference()) {
-        this.router.navigate(['']);
-      }
+      this.httpService.getConference(this.currentConferenceId).then((data) => {
+        this.currentConference = data;
+        if (!this.isAdminConference()) {
+          this.router.navigate(['']);
+        }
+      });
+
+      this.httpService.getConferenceUsers(this.currentConferenceId).then((data) => {
+        this.countUsers = data
+      });
+
+      this.httpService.getConferenceJobs(this.currentConferenceId).then((data) => {
+        this.jobs = data;
+      });
     });
-
-    this.getConferenceUsers(this.currentConferenceId).then((data) => {
-      this.countUsers = data
-    });
-
-    this.getConferenceJobs(this.currentConferenceId).then((data) => {
-      this.jobs = data;
-    });
   }
 
-  async getConferenceUsers(id: string): Promise<number> {
-    return await firstValueFrom(this.http.get<number>(`${this.baseUrl}/api/v1/admin/conference/${id}/users`, this.httpOptions));
-  }
-
-  async getConference(id: string): Promise<Conference> {
-    return await firstValueFrom(this.http.get<Conference>(`${this.baseUrl}/api/v1/member/conference/${id}`, this.httpOptions));
-  }
-
-  async getConferenceJobs(id: string): Promise<Job[]> {
-    return await firstValueFrom(this.http.get<Job[]>(`${this.baseUrl}/api/v1/admin/jobs/${id}`, this.httpOptions));
-  }
 
   isAdminAbsolute(): boolean {
     return this.loggedUser.role == 'ADMIN' || this.loggedUser.role == 'SUPER_ADMIN';
@@ -121,35 +94,22 @@ export class ConferenceJobsComponent implements OnInit, AfterViewInit {
   }
 
   downloadOneJob(job: Job) {
-    this.http.get(`${this.baseUrl}/api/v1/files/downloadFile/${job.fileName}`, {
-      observe: 'response',
-      responseType: 'blob'
-    })
-      .subscribe(response => {
-        let fileName = response.headers.get('content-disposition')?.split(';')[1].split('=')[1];
-        let blob: Blob = response.body as Blob;
-        let a = document.createElement('a');
-        if (fileName) {
-          a.download = fileName;
-          a.href = window.URL.createObjectURL(blob);
-          a.click();
-        }
-      });
+    this.httpService.downloadFile(job.fileName).then(response => this.processDownloadFile(response));
   }
 
   downloadJobs() {
-    this.http.get(`${this.baseUrl}/api/v1/files/downloadFiles/${this.currentConferenceId}`, {
-      observe: 'response', responseType: 'blob'
-    }).subscribe(response => {
-      let fileName = response.headers.get('content-disposition')?.split(';')[1].split('=')[1];
-      let blob: Blob = response.body as Blob;
-      let a = document.createElement('a');
-      if (fileName) {
-        a.download = fileName;
-        a.href = window.URL.createObjectURL(blob);
-        a.click();
-      }
-    });
+    this.httpService.downloadFiles(this.currentConferenceId).then(response => this.processDownloadFile(response));
+  }
+
+  processDownloadFile(response: HttpResponse<any>) {
+    let fileName = response.headers.get('content-disposition')?.split(';')[1].split('=')[1];
+    let blob: Blob = response.body as Blob;
+    let a = document.createElement('a');
+    if (fileName) {
+      a.download = fileName;
+      a.href = window.URL.createObjectURL(blob);
+      a.click();
+    }
   }
 
   toPage(link: string) {
